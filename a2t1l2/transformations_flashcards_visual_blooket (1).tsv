@@ -1,0 +1,47 @@
+Blooket
+Import Template								
+Question #	Question Text	Answer 1	Answer 2	Answer 3
+(Optional)	Answer 4
+(Optional)	Time Limit (sec)
+(Max: 300 seconds)	Correct Answer(s)
+(Only include Answer #)
+1	f(x) = x² → g(x) = f(x) + 3 [See Graph Q1]	Graph moves ↑ 3 units	Graph moves ↓ 3 units	Graph moves ← 3 units	Graph moves → 3 units	20	1
+2	f(x) = x² → g(x) = f(x) - 3 [See Graph Q2]	Graph moves ↑ 3 units	Graph moves ↓ 3 units	Graph moves ← 3 units	Graph moves → 3 units	20	2
+3	g(x) = f(x - 5) [See Graph Q3]	Move → 5 units (horizontal)	Move ← 5 units (horizontal)	Move ↑ 5 units (vertical)	Move ↓ 5 units (vertical)	20	1
+4	g(x) = f(x + 5) [See Graph Q4]	Move → 5 units (horizontal)	Move ← 5 units (horizontal)	Move ↑ 5 units (vertical)	Move ↓ 5 units (vertical)	20	2
+5	f(x) = |x| → g(x) = |x + 4| [See Graph Q5]	Points move ← 4 units	Points move → 4 units	Points move ↑ 4 units	Points move ↓ 4 units	20	1
+6	f(x) = |x| → g(x) = |x - 4| [See Graph Q6]	Points move ← 4 units	Points move → 4 units	Points move ↑ 4 units	Points move ↓ 4 units	20	2
+7	Domain f = [-2, 2], g(x) = f(x) - 4 [See Graph Q7]	Domain stays [-2, 2]	Domain = [-6, -2]	Domain = [2, 6]	Domain = [-4, 0]	25	1
+8	Domain f = [-2, 2], g(x) = f(x - 3) [See Graph Q8]	Domain stays [-2, 2]	Domain = [-5, -1]	Domain = [1, 5]	Domain = [-3, 3]	25	3
+9	Range f = [0, 4], g(x) = f(x) + 2 [See Graph Q9]	Range = [2, 6] ↑	Range = [-2, 2] ↓	Range = [0, 4] same	Range = [0, 6] expand	25	1
+10	Range f = [0, 4], g(x) = f(x) - 2 [See Graph Q10]	Range = [2, 6] ↑	Range = [-2, 2] ↓	Range = [0, 4] same	Range = [0, 2] shrink	25	2
+11	Parabola vertex at (0, -5) [See Graph Q11]	y = x² - 5	y = x² + 5	y = (x - 5)²	y = (x + 5)²	20	1
+12	Parabola vertex at (5, 0) [See Graph Q12]	y = x² - 5	y = x² + 5	y = (x - 5)²	y = (x + 5)²	20	3
+13	Vertical translation = ? [See Diagram Q13]	Points move ↑↓ same amount	Points move ←→ same amount	Points move ↗ diagonal	Points rotate ↻ around origin	15	1
+14	Horizontal translation = ? [See Diagram Q14]	Points move ↑↓ same amount	Points move ←→ same amount	Points move ↗ diagonal	Points rotate ↻ around origin	15	2
+15	g(x) = |x| + 100, f(x) = |x| [See Q15]	Shift ↑ 100 units	Shift ↓ 100 units	Shift ← 100 units	Shift → 100 units	20	1
+16	g(x) = |x + 100|, f(x) = |x| [See Q16]	Shift ↑ 100 units	Shift ↓ 100 units	Shift ← 100 units	Shift → 100 units	20	3
+17	Point (2, 8) → g(x) = f(x) - 3 [See Q17]	New point = (2, 5)	New point = (2, 11)	New point = (-1, 8)	New point = (5, 8)	25	1
+18	Point (2, 8) → g(x) = f(x) + 3 [See Q18]	New point = (2, 5)	New point = (2, 11)	New point = (-1, 8)	New point = (5, 8)	25	2
+19	Point (2, 8) → g(x) = f(x - 3) [See Q19]	New point = (2, 8)	New point = (-1, 8)	New point = (5, 8)	New point = (2, 5)	25	3
+20	Point (2, 8) → g(x) = f(x + 3) [See Q20]	New point = (2, 8)	New point = (-1, 8)	New point = (5, 8)	New point = (2, 11)	25	2
+21	g(x) = f(x) + k, k > 0 [See Q21]	Vertical shift ↑ by k units	Vertical shift ↓ by k units	Horizontal shift → by k units	Horizontal shift ← by k units	20	1
+22	g(x) = f(x) - k, k > 0 [See Q22]	Vertical shift ↑ by k units	Vertical shift ↓ by k units	Horizontal shift → by k units	Horizontal shift ← by k units	20	2
+23	g(x) = f(x - h), h > 0 [See Q23]	Vertical shift ↑ by h units	Vertical shift ↓ by h units	Horizontal shift → by h units	Horizontal shift ← by h units	20	3
+24	g(x) = f(x + h), h > 0 [See Q24]	Vertical shift ↑ by h units	Vertical shift ↓ by h units	Horizontal shift → by h units	Horizontal shift ← by h units	20	4
+25	y-intercept (0, 4), g = f + 2 [See Q25]	y-intercept → (0, 6)	y-intercept → (0, 2)	y-intercept → (2, 4)	y-intercept → (-2, 4)	20	1
+26	y-intercept (0, 4), g = f - 2 [See Q26]	y-intercept → (0, 6)	y-intercept → (0, 2)	y-intercept → (2, 4)	y-intercept → (-2, 4)	20	2
+27	Vertical ↕ : x-coordinates? [See Q27]	x stays same (no change)	x increases (+)	x decreases (-)	x multiplies (×)	20	1
+28	Horizontal ↔ : y-coordinates? [See Q28]	y stays same (no change)	y increases (+)	y decreases (-)	y multiplies (×)	20	1
+29	x² → (x - 2)², vertex (0,0) → ? [See Q29]	Vertex → (2, 0)	Vertex → (-2, 0)	Vertex → (0, 2)	Vertex → (0, -2)	25	1
+30	x² → (x + 2)², vertex (0,0) → ? [See Q30]	Vertex → (2, 0)	Vertex → (-2, 0)	Vertex → (0, 2)	Vertex → (0, -2)	25	2
+31	|x| shift down 7: equation? [See Q31]	|x| - 7	|x| + 7	|x - 7|	|x + 7|	20	1
+32	|x| shift right 7: equation? [See Q32]	|x| - 7	|x| + 7	|x - 7|	|x + 7|	20	3
+33	Min f = 3, g = f + 5, Min g = ? [See Q33]	Min = 8 (3+5)	Min = -2 (3-5)	Min = 3 (same)	Min = 15 (3×5)	20	1
+34	Min f = 3, g = f - 5, Min g = ? [See Q34]	Min = 8 (3+5)	Min = -2 (3-5)	Min = 3 (same)	Min = -15 (3-5×3)	20	2
+35	f(x) → f(x - 4), x = 1 → x = ? [See Q35]	x = 5 (1+4)	x = -3 (1-4)	x = 1 (same)	x = 4 (new)	25	1
+36	f(x) → f(x + 4), x = 1 → x = ? [See Q36]	x = 5 (1+4)	x = -3 (1-4)	x = 1 (same)	x = -4 (new)	25	2
+37	Transformation = change in? [See Q37]	Position/shape/orientation	Variable names only	Color/thickness only	Speed/efficiency only	15	1
+38	Translation = points move? [See Q38]	Same distance & direction ⟹	Rotate around center ↻	Change size proportional ⟷	Flip across line ↔	15	1
+39	f(2) = 10, g = f + 3, g(2) = ? [See Q39]	g(2) = 13 (10+3)	g(2) = 7 (10-3)	g(2) = 10 (same)	g(2) = 30 (10×3)	20	1
+40	f(2) = 10, g = f - 3, g(2) = ? [See Q40]	g(2) = 13 (10+3)	g(2) = 7 (10-3)	g(2) = 10 (same)	g(2) = 30 (10×3)	20	2

@@ -1,15 +1,16 @@
 # ------------------------------------------------------------
 #  PERSONAL AREA – EDIT ONLY THESE THREE LINES
 # ------------------------------------------------------------
-BASE_URL       = 'https://app.schoology.com'   # <-- main domain for API/OAuth
-CONSUMER_KEY   = '8efc66fd6fd8668d21dce0e5e3047e220690a1f22'           # <-- fresh from https://app.schoology.com/api
-CONSUMER_SECRET = '9da622ccc709ba65e9e685ff9bc82746'       # <-- fresh from https://app.schoology.com/api
+BASE_URL       = 'https://app.schoology.com'   # <-- main domain for login/OAuth
+CONSUMER_KEY   = '111573b00469adf603471a59c8019a4b0690a5db3'       # <-- fresh from https://app.schoology.com/api
+CONSUMER_SECRET = '93dbd10afd358400043e168589deff7c'   # <-- fresh from https://app.schoology.com/api
 HEADLESS       = False                         # <-- Set to True once debugging is done
 # ------------------------------------------------------------
 
 import requests
-from requests_oauthlib import OAuth1Session
+from requests_oauthlib import OAuth1, OAuth1Session
 import getpass  # For secure password input
+from urllib.parse import parse_qsl
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
@@ -34,7 +35,7 @@ def debug_response(resp):
     for k, v in resp.headers.items():
         print(f"  {k}: {v}")
     print("Body:")
-    print(resp.text[:1000])   # first 1000 chars – enough to see HTML/JSON
+    print(resp.text)   # print full body for debug
     print("--- END DEBUG ---\n")
 
 # Set up Chrome with options
@@ -60,7 +61,7 @@ try:
         print("Already logged in (redirected to dashboard). Skipping SSO steps.")
         print("Current URL: " + driver.current_url)
     else:
-        print("Login page detected. Please log in manually in the browser window (select school if needed, then SSO), then press Enter here.")
+        print("Login page detected. Please log in manually in the browser window (search for your school, then SSO), then press Enter here.")
         input("Press Enter after logging in...")
         # Wait for dashboard
         try:
@@ -71,6 +72,10 @@ try:
             print("Page source for debug:")
             print(driver.page_source[:2000])
             raise e
+    
+    # Get the instance domain (e.g., https://lynnschools.schoology.com)
+    instance_domain = driver.current_url.rsplit('/home', 1)[0]
+    print("Instance domain: " + instance_domain)
 except Exception as e:
     print(f"Login automation failed: {e}")
     driver.quit()
@@ -81,31 +86,57 @@ requests_session = requests.Session()
 for cookie in driver.get_cookies():
     requests_session.cookies.set(cookie['name'], cookie['value'])
 
-# ------------------------------------------------------------------
-# 1. Get a request token (using logged-in session cookies)
-# ------------------------------------------------------------------
-oauth = OAuth1Session(CONSUMER_KEY, client_secret=CONSUMER_SECRET)
-oauth.cookies.update(requests_session.cookies)
+# API base is api.schoology.com
+API_BASE = 'https://api.schoology.com/v1'
 
-request_token_url = f'{BASE_URL}/oauth/request_token'
+# ------------------------------------------------------------------
+# 1. Get a request token
+# ------------------------------------------------------------------
+request_token_candidates = [
+    f'{API_BASE}/oauth/request_token',                   # preferred
+    'https://api.schoology.com/oauth/request_token',     # fallback without /v1
+    'https://app.schoology.com/oauth/request_token'      # legacy fallback
+]
+
+resp = None
 try:
-    resp = oauth.fetch_request_token(request_token_url, timeout=15)
+    last_error = None
+    token_dict = None
+    for idx, request_token_url in enumerate(request_token_candidates):
+        auth = OAuth1(CONSUMER_KEY, CONSUMER_SECRET, callback_uri='oob')
+        try:
+            resp = requests.post(request_token_url, auth=auth, timeout=30, allow_redirects=False)
+            if resp.status_code != 200:
+                raise requests.exceptions.RequestException(f"Non-200 status: {resp.status_code}")
+            content_type = resp.headers.get('Content-Type', '').lower()
+            if 'text/html' in content_type or resp.text.lstrip().startswith('<'):
+                raise ValueError('Unexpected HTML response from request_token endpoint')
+            token_dict = dict(parse_qsl(resp.text))
+            if 'oauth_token' in token_dict and 'oauth_token_secret' in token_dict:
+                break
+            raise ValueError('oauth_token fields missing in response')
+        except Exception as inner_e:
+            last_error = inner_e
+            if idx == len(request_token_candidates) - 1:
+                raise
+            # Try next candidate URL
+            continue
+
+    resource_owner_key = token_dict['oauth_token']
+    resource_owner_secret = token_dict['oauth_token_secret']
+    print("Request token obtained.")
 except Exception as e:
     print(f"Error fetching request token: {e}")
-    raw = requests_session.post(request_token_url, timeout=15, allow_redirects=False)
-    debug_response(raw)
+    if resp is not None:
+        debug_response(resp)
     driver.quit()
     exit(1)
 
-resource_owner_key = resp.get('oauth_token')
-resource_owner_secret = resp.get('oauth_token_secret')
-print("Request token obtained.")
-
 # ------------------------------------------------------------------
-# 2. Automate app authorization (using same logged-in driver)
+# 2. Automate app authorization (using instance domain)
 # ------------------------------------------------------------------
-base_authorization_url = f'{BASE_URL}/oauth/authorize'
-authorization_url = oauth.authorization_url(base_authorization_url, callback_uri='oob')  # oob for verifier display
+base_authorization_url = f'{instance_domain}/oauth/authorize'
+authorization_url = f"{base_authorization_url}?oauth_token={resource_owner_key}"
 print(f"\nAutomating app authorization at: {authorization_url}")
 
 try:
@@ -136,19 +167,28 @@ except Exception as e:
 # ------------------------------------------------------------------
 # 3. Exchange for access token using verifier
 # ------------------------------------------------------------------
-access_token_url = f'{BASE_URL}/oauth/access_token'
+access_token_url = f'{API_BASE}/oauth/access_token'
+auth = OAuth1(CONSUMER_KEY, CONSUMER_SECRET, resource_owner_key=resource_owner_key, resource_owner_secret=resource_owner_secret, verifier=verifier)
 try:
-    oauth_tokens = oauth.fetch_access_token(access_token_url, verifier=verifier, timeout=15)
+    resp = requests.post(access_token_url, auth=auth, timeout=15)
+    if resp.status_code != 200:
+        print("Non-200 status for access token: " + str(resp.status_code))
+        print(resp.text)
+        raise requests.exceptions.RequestException("Non-200 status")
+    try:
+        token_dict = dict(parse_qsl(resp.text))
+    except Exception as e:
+        print("Error parsing token response: " + str(e))
+        print("Response text: " + resp.text)
+        raise e
+    access_key = token_dict['oauth_token']
+    access_secret = token_dict['oauth_token_secret']
+    print("Access token obtained.")
 except Exception as e:
     print(f"Error fetching access token: {e}")
-    raw = requests_session.post(access_token_url, timeout=15, allow_redirects=False)
-    debug_response(raw)
+    debug_response(resp)
     driver.quit()
     exit(1)
-
-access_key = oauth_tokens['oauth_token']
-access_secret = oauth_tokens['oauth_token_secret']
-print("Access token obtained.")
 
 driver.quit()  # Close browser
 
@@ -167,7 +207,7 @@ client.cookies.update(requests_session.cookies)
 # 5. Get your user ID
 # ------------------------------------------------------------------
 try:
-    r = client.get(f'{BASE_URL}/v1/users/me', timeout=15)
+    r = client.get(f'{API_BASE}/users/me', timeout=15)
     r.raise_for_status()
     user = r.json()
     user_id = user['uid']
@@ -180,7 +220,7 @@ except requests.exceptions.RequestException as e:
 # 6. List your sections (courses)
 # ------------------------------------------------------------------
 try:
-    r = client.get(f'{BASE_URL}/v1/users/{user_id}/sections', timeout=15)
+    r = client.get(f'{API_BASE}/users/{user_id}/sections', timeout=15)
     r.raise_for_status()
     sections_data = r.json()
     sections = sections_data.get('section', [])
@@ -206,7 +246,7 @@ folder_data = {
 
 try:
     r = client.post(
-        f'{BASE_URL}/v1/sections/{section_id}/folders',
+        f'{API_BASE}/sections/{section_id}/folders',
         json=folder_data
     )
     r.raise_for_status()
