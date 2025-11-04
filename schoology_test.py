@@ -63,66 +63,13 @@ try:
     
     # Check if already logged in (redirected to dashboard)
     time.sleep(2)  # Brief wait for redirect
-    if "/home" in driver.current_url or "Schoology" in driver.title:  # Adjust based on actual title
+    if "/home" in driver.current_url:
         print("Already logged in (redirected to dashboard). Skipping SSO steps.")
         print("Current URL: " + driver.current_url)
     else:
-        username, password = get_credentials()
-        
-        # Check for and switch to iframe if present
-        try:
-            iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
-            driver.switch_to.frame(iframe)
-            print("Switched to iframe.")
-        except TimeoutException:
-            print("No iframe detected; proceeding without switch.")
-        
-        # Fill email
-        try:
-            email_field = wait.until(EC.visibility_of_element_located((By.NAME, "loginfmt")))
-            driver.execute_script("arguments[0].scrollIntoView(true);", email_field)
-            time.sleep(0.5)
-            email_field.send_keys(username)
-            next_button = wait.until(EC.element_to_be_clickable((By.ID, "idSIButton9")))
-            driver.execute_script("arguments[0].click();", next_button)
-        except TimeoutException as e:
-            print(f"Timeout waiting for email field/next button. Current URL: {driver.current_url}")
-            print("Page source for debug:")
-            print(driver.page_source[:2000])
-            raise e
-        
-        # Fill password
-        try:
-            password_field = wait.until(EC.visibility_of_element_located((By.NAME, "passwd")))
-            driver.execute_script("arguments[0].scrollIntoView(true);", password_field)
-            time.sleep(0.5)
-            password_field.send_keys(password)
-            signin_button = wait.until(EC.element_to_be_clickable((By.ID, "idSIButton9")))
-            driver.execute_script("arguments[0].click();", signin_button)
-        except TimeoutException as e:
-            print(f"Timeout waiting for password field/signin button. Current URL: {driver.current_url}")
-            print("Page source for debug:")
-            print(driver.page_source[:2000])
-            raise e
-        
-        # Handle MFA if present
-        try:
-            mfa_field = wait.until(EC.visibility_of_element_located((By.NAME, "otc")), timeout=10)
-            mfa_code = input("Enter MFA code from your phone: ")
-            mfa_field.send_keys(mfa_code)
-            verify_button = wait.until(EC.element_to_be_clickable((By.ID, "idSIButton9")))
-            driver.execute_script("arguments[0].click();", verify_button)
-        except TimeoutException:
-            print("No MFA detected; skipping.")
-        
-        # Handle "Stay signed in?" if present
-        try:
-            yes_button = wait.until(EC.element_to_be_clickable((By.ID, "idSIButton9")), timeout=10)
-            driver.execute_script("arguments[0].click();", yes_button)
-        except TimeoutException:
-            pass
-        
-        # Wait for Schoology dashboard
+        print("Login page detected. Please log in manually in the browser window, then press Enter here.")
+        input("Press Enter after logging in...")
+        # Wait for dashboard
         try:
             wait.until(EC.url_contains("/home"))
             print("Login successful. Current URL: " + driver.current_url)
@@ -144,7 +91,8 @@ for cookie in driver.get_cookies():
 # ------------------------------------------------------------------
 # 1. Get a request token (using logged-in session)
 # ------------------------------------------------------------------
-oauth = OAuth1Session(CONSUMER_KEY, client_secret=CONSUMER_SECRET, session=requests_session)
+oauth = OAuth1Session(CONSUMER_KEY, client_secret=CONSUMER_SECRET)
+oauth.cookies.update(requests_session.cookies)
 
 request_token_url = f'{BASE_URL}/oauth/request_token'
 try:
@@ -169,6 +117,11 @@ print(f"\nAutomating app authorization at: {authorization_url}")
 
 try:
     driver.get(authorization_url)
+    
+    # If SSO triggers again, prompt user to complete it
+    if "login.microsoftonline.com" in driver.current_url or "auth" in driver.current_url:
+        print("Additional authentication required. Please complete it in the browser, then press Enter here.")
+        input("Press Enter after authenticating...")
     
     # Reset to default content if iframe was switched earlier
     driver.switch_to.default_content()
@@ -213,9 +166,9 @@ client = OAuth1Session(
     CONSUMER_KEY,
     client_secret=CONSUMER_SECRET,
     resource_owner_key=access_key,
-    resource_owner_secret=access_secret,
-    session=requests_session
+    resource_owner_secret=access_secret
 )
+client.cookies.update(requests_session.cookies)
 
 # ------------------------------------------------------------------
 # 5. Get your user ID
