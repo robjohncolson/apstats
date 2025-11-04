@@ -1,10 +1,10 @@
 # ------------------------------------------------------------
 #  PERSONAL AREA – EDIT ONLY THESE THREE LINES
 # ------------------------------------------------------------
-BASE_URL       = 'https://lynnschools.schoology.com'   # <-- your custom domain
-CONSUMER_KEY   = '8efc66fd6fd8668d21dce0e5e3047e220690a1f22'                   # <-- fresh from Schoology API page
-CONSUMER_SECRET = '9da622ccc709ba65e9e685ff9bc82746'               # <-- fresh from Schoology API page
-HEADLESS       = False                                 # <-- Set to True once debugging is done
+BASE_URL       = 'https://app.schoology.com'   # <-- main domain for API/OAuth
+CONSUMER_KEY   = '8efc66fd6fd8668d21dce0e5e3047e220690a1f22'           # <-- fresh from https://app.schoology.com/api
+CONSUMER_SECRET = '9da622ccc709ba65e9e685ff9bc82746'       # <-- fresh from https://app.schoology.com/api
+HEADLESS       = False                         # <-- Set to True once debugging is done
 # ------------------------------------------------------------
 
 import requests
@@ -37,13 +37,6 @@ def debug_response(resp):
     print(resp.text[:1000])   # first 1000 chars – enough to see HTML/JSON
     print("--- END DEBUG ---\n")
 
-# Prompt for credentials securely (only if needed)
-def get_credentials():
-    print("Enter your Microsoft SSO credentials for Schoology:")
-    username = input("Username (email): ")
-    password = getpass.getpass("Password: ")
-    return username, password
-
 # Set up Chrome with options
 options = Options()
 if HEADLESS:
@@ -67,7 +60,7 @@ try:
         print("Already logged in (redirected to dashboard). Skipping SSO steps.")
         print("Current URL: " + driver.current_url)
     else:
-        print("Login page detected. Please log in manually in the browser window, then press Enter here.")
+        print("Login page detected. Please log in manually in the browser window (select school if needed, then SSO), then press Enter here.")
         input("Press Enter after logging in...")
         # Wait for dashboard
         try:
@@ -89,7 +82,7 @@ for cookie in driver.get_cookies():
     requests_session.cookies.set(cookie['name'], cookie['value'])
 
 # ------------------------------------------------------------------
-# 1. Get a request token (using logged-in session)
+# 1. Get a request token (using logged-in session cookies)
 # ------------------------------------------------------------------
 oauth = OAuth1Session(CONSUMER_KEY, client_secret=CONSUMER_SECRET)
 oauth.cookies.update(requests_session.cookies)
@@ -118,12 +111,12 @@ print(f"\nAutomating app authorization at: {authorization_url}")
 try:
     driver.get(authorization_url)
     
-    # If SSO triggers again, prompt user to complete it
+    # If SSO triggers again, prompt manual
     if "login.microsoftonline.com" in driver.current_url or "auth" in driver.current_url:
         print("Additional authentication required. Please complete it in the browser, then press Enter here.")
         input("Press Enter after authenticating...")
     
-    # Reset to default content if iframe was switched earlier
+    # Reset to default content
     driver.switch_to.default_content()
     
     # Click Allow
@@ -176,11 +169,11 @@ client.cookies.update(requests_session.cookies)
 try:
     r = client.get(f'{BASE_URL}/v1/users/me', timeout=15)
     r.raise_for_status()
-    user_id = r.json()['uid']
-    print(f"\nYour Schoology user ID: {user_id}")
+    user = r.json()
+    user_id = user['uid']
+    print(f"Your user ID: {user_id}")
 except requests.exceptions.RequestException as e:
-    print(f"Failed to get user info: {e}")
-    debug_response(r)
+    print(f"Error getting user info: {e}")
     exit(1)
 
 # ------------------------------------------------------------------
@@ -189,39 +182,34 @@ except requests.exceptions.RequestException as e:
 try:
     r = client.get(f'{BASE_URL}/v1/users/{user_id}/sections', timeout=15)
     r.raise_for_status()
-    sections = r.json().get('section', [])
+    sections_data = r.json()
+    sections = sections_data.get('section', [])
     if not sections:
-        print("No sections found – are you teaching any courses?")
+        print("No sections found. Are you enrolled/teaching any?")
         exit(1)
-
-    print("\nYour teaching sections:")
-    for s in sections:
-        print(f" • {s['course_title']} – Section ID: {s['id']} – Title: {s['section_title']}")
+    print("\nYour sections:")
+    for sec in sections:
+        print(f"- {sec['course_title']} (Section ID: {sec['id']}, Code: {sec['section_title']})")
 except requests.exceptions.RequestException as e:
-    print(f"Failed to list sections: {e}")
-    debug_response(r)
+    print(f"Error listing sections: {e}")
     exit(1)
 
 # ------------------------------------------------------------------
-# 7. Create a test folder in the **first** section
+# 7. Create a folder in the first section (change index if needed)
 # ------------------------------------------------------------------
-section_id = sections[0]['id']   # change index or hard-code if you prefer
-folder_payload = {
-    "title": "API Test Folder (Hello World)",
-    "description": "Created automatically by a Python script."
+section_id = sections[0]['id']  # Use the first section; replace with a specific ID if desired
+folder_data = {
+    "title": "API Test Folder",
+    "description": "This folder was created via a Python script using the Schoology API."
+    # Optional: "files_allowed": 1, "allow_comments": 1, etc.
 }
 
 try:
     r = client.post(
         f'{BASE_URL}/v1/sections/{section_id}/folders',
-        json=folder_payload,
-        timeout=15
+        json=folder_data
     )
     r.raise_for_status()
-    print(f"\nFolder created! ID: {r.json().get('id')}")
+    print(f"\nFolder created successfully in section {section_id}! Response: {r.json()}")
 except requests.exceptions.RequestException as e:
-    print(f"Failed to create folder: {e}")
-    debug_response(r)
-    exit(1)
-
-print("\nAll done!")
+    print(f"Error creating folder: {e}")
