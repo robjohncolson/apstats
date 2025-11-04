@@ -47,14 +47,14 @@ options.add_argument("--log-level=0")  # Verbose logging
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
 # ------------------------------------------------------------------
-# Automate full Schoology login via SSO (to get session cookies)
+# Automate full Schoology login via SSO (ONLY for authorization step)
 # ------------------------------------------------------------------
 print("\nAutomating Schoology login via SSO...")
 try:
     driver.get(f"{BASE_URL}/login")
-    
+
     wait = WebDriverWait(driver, 30)
-    
+
     # Check if already logged in (redirected to dashboard)
     time.sleep(2)  # Brief wait for redirect
     if "/home" in driver.current_url:
@@ -72,63 +72,81 @@ try:
             print("Page source for debug:")
             print(driver.page_source[:2000])
             raise e
-    
+
     # Get the instance domain (e.g., https://lynnschools.schoology.com)
     instance_domain = driver.current_url.rsplit('/home', 1)[0]
     print("Instance domain: " + instance_domain)
+
+    # NOTE: We don't need cookies for OAuth API calls - OAuth uses signatures, not sessions
 except Exception as e:
     print(f"Login automation failed: {e}")
     driver.quit()
     exit(1)
 
-# Extract cookies from Selenium and create requests session
-requests_session = requests.Session()
-for cookie in driver.get_cookies():
-    requests_session.cookies.set(cookie['name'], cookie['value'])
-
 # API base is api.schoology.com
 API_BASE = 'https://api.schoology.com/v1'
 
 # ------------------------------------------------------------------
-# 1. Get a request token
+# 1. Request OAuth request token (NO COOKIES - pure OAuth 1.0a)
 # ------------------------------------------------------------------
-request_token_candidates = [
-    f'{API_BASE}/oauth/request_token',                   # preferred
-    'https://api.schoology.com/oauth/request_token',     # fallback without /v1
-    'https://app.schoology.com/oauth/request_token'      # legacy fallback
-]
+print("\n=== Step 1: Requesting OAuth request token ===")
+request_token_url = f'{API_BASE}/oauth/request_token'
 
-resp = None
 try:
-    last_error = None
-    token_dict = None
-    for idx, request_token_url in enumerate(request_token_candidates):
-        auth = OAuth1(CONSUMER_KEY, CONSUMER_SECRET, callback_uri='oob')
-        try:
-            resp = requests.post(request_token_url, auth=auth, timeout=30, allow_redirects=False)
-            if resp.status_code != 200:
-                raise requests.exceptions.RequestException(f"Non-200 status: {resp.status_code}")
-            content_type = resp.headers.get('Content-Type', '').lower()
-            if 'text/html' in content_type or resp.text.lstrip().startswith('<'):
-                raise ValueError('Unexpected HTML response from request_token endpoint')
-            token_dict = dict(parse_qsl(resp.text))
-            if 'oauth_token' in token_dict and 'oauth_token_secret' in token_dict:
-                break
-            raise ValueError('oauth_token fields missing in response')
-        except Exception as inner_e:
-            last_error = inner_e
-            if idx == len(request_token_candidates) - 1:
-                raise
-            # Try next candidate URL
-            continue
+    # Create OAuth1Session without any cookies - pure OAuth signature
+    oauth_req = OAuth1Session(
+        CONSUMER_KEY,
+        client_secret=CONSUMER_SECRET,
+        callback_uri='oob'  # Out-of-band for CLI apps
+    )
 
-    resource_owner_key = token_dict['oauth_token']
-    resource_owner_secret = token_dict['oauth_token_secret']
-    print("Request token obtained.")
+    print(f"Requesting token from: {request_token_url}")
+    print(f"Consumer Key: {CONSUMER_KEY[:10]}...")  # Show first 10 chars for verification
+
+    # Attempt to fetch request token with proper headers
+    try:
+        token_dict = oauth_req.fetch_request_token(
+            request_token_url,
+            headers={
+                'Accept': 'application/x-www-form-urlencoded',
+                'User-Agent': 'SchoologyAPIClient/1.0'
+            }
+        )
+        resource_owner_key = token_dict['oauth_token']
+        resource_owner_secret = token_dict['oauth_token_secret']
+        print("Request token obtained.")
+        print(f"  oauth_token: {resource_owner_key[:20]}...")
+    except Exception as api_error:
+        # If API endpoint fails, it's likely a key approval issue
+        print(f"\n*** API OAuth endpoint failed: {api_error}")
+
+        if hasattr(api_error, 'response'):
+            resp = api_error.response
+            print(f"Response Status: {resp.status_code}")
+            print(f"Response Headers: {dict(resp.headers)}")
+
+            # Check if we got HTML (404 page or error page)
+            if 'text/html' in resp.headers.get('Content-Type', ''):
+                print("\nReceived HTML response - OAuth endpoint may not be accessible.")
+                print("This typically means:")
+                print("1. Your consumer key is not approved for 3-legged OAuth")
+                print("2. The API endpoint requires app approval from PowerSchool/district")
+                print("3. Your app needs to be associated with the tenant (lynnschools)")
+
+                # Show first 500 chars of HTML for debugging
+                print("\nFirst 500 chars of response:")
+                print(resp.text[:500])
+
+        print("\n=== ACTION REQUIRED ===")
+        print("Contact your Schoology administrator to:")
+        print("1. Verify the consumer key is approved for 3-legged OAuth")
+        print("2. Associate the app with lynnschools.schoology.com tenant")
+        print("3. Enable user data access permissions for the app")
+        driver.quit()
+        exit(1)
+
 except Exception as e:
-    print(f"Error fetching request token: {e}")
-    if resp is not None:
-        debug_response(resp)
+    print(f"Unexpected error fetching request token: {e}")
     driver.quit()
     exit(1)
 
@@ -136,7 +154,13 @@ except Exception as e:
 # 2. Automate app authorization (using instance domain)
 # ------------------------------------------------------------------
 base_authorization_url = f'{instance_domain}/oauth/authorize'
-authorization_url = f"{base_authorization_url}?oauth_token={resource_owner_key}"
+oauth_auth = OAuth1Session(
+    CONSUMER_KEY,
+    client_secret=CONSUMER_SECRET,
+    resource_owner_key=resource_owner_key,
+    resource_owner_secret=resource_owner_secret
+)
+authorization_url = oauth_auth.authorization_url(base_authorization_url)
 print(f"\nAutomating app authorization at: {authorization_url}")
 
 try:
@@ -167,41 +191,50 @@ except Exception as e:
 # ------------------------------------------------------------------
 # 3. Exchange for access token using verifier
 # ------------------------------------------------------------------
+print("\n=== Step 3: Exchanging verifier for access token ===")
 access_token_url = f'{API_BASE}/oauth/access_token'
-auth = OAuth1(CONSUMER_KEY, CONSUMER_SECRET, resource_owner_key=resource_owner_key, resource_owner_secret=resource_owner_secret, verifier=verifier)
+
 try:
-    resp = requests.post(access_token_url, auth=auth, timeout=15)
-    if resp.status_code != 200:
-        print("Non-200 status for access token: " + str(resp.status_code))
-        print(resp.text)
-        raise requests.exceptions.RequestException("Non-200 status")
-    try:
-        token_dict = dict(parse_qsl(resp.text))
-    except Exception as e:
-        print("Error parsing token response: " + str(e))
-        print("Response text: " + resp.text)
-        raise e
+    oauth_acc = OAuth1Session(
+        CONSUMER_KEY,
+        client_secret=CONSUMER_SECRET,
+        resource_owner_key=resource_owner_key,
+        resource_owner_secret=resource_owner_secret,
+        verifier=verifier
+    )
+
+    print(f"Exchanging at: {access_token_url}")
+    token_dict = oauth_acc.fetch_access_token(
+        access_token_url,
+        headers={
+            'Accept': 'application/x-www-form-urlencoded',
+            'User-Agent': 'SchoologyAPIClient/1.0'
+        }
+    )
     access_key = token_dict['oauth_token']
     access_secret = token_dict['oauth_token_secret']
     print("Access token obtained.")
+    print(f"  oauth_token: {access_key[:20]}...")
 except Exception as e:
     print(f"Error fetching access token: {e}")
-    debug_response(resp)
+    if hasattr(e, 'response'):
+        debug_response(e.response)
     driver.quit()
     exit(1)
 
 driver.quit()  # Close browser
 
 # ------------------------------------------------------------------
-# 4. New session with the access token
+# 4. New OAuth session with the access token (NO COOKIES)
 # ------------------------------------------------------------------
+print("\n=== Step 4: Creating authenticated API client ===")
 client = OAuth1Session(
     CONSUMER_KEY,
     client_secret=CONSUMER_SECRET,
     resource_owner_key=access_key,
     resource_owner_secret=access_secret
 )
-client.cookies.update(requests_session.cookies)
+# NOTE: No cookies needed - OAuth signatures handle authentication
 
 # ------------------------------------------------------------------
 # 5. Get your user ID
