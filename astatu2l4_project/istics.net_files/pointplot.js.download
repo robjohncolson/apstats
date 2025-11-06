@@ -1,0 +1,30 @@
+	function PointPlot(){};
+
+	PointPlot.prototype = {
+	
+		plotter : null,
+	
+		radius : 1, // in pixels
+		
+		x : [],
+		y : [],
+		n : function() {
+				if(this.y.length<this.x.length) {
+					return(this.y.length);
+				}
+				return(this.x.length);
+			},
+			
+			
+		paint : function() {
+			var m = this.n();
+			var cntxt = this.plotter.context;
+		   	for(var i=0;i<m;i++) {
+			   	cntxt.beginPath();
+			   	cntxt.arc(this.plotter.px(this.x[i]),this.plotter.py(this.y[i]),this.radius,0,2*Math.PI,true);
+		   		cntxt.closePath();
+			   	cntxt.fill();
+	   		}
+		}
+	}
+		

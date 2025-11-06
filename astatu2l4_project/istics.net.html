@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://istics.net/Correlations/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<link rel="shortcut icon" href="http://istics.net/Correlations/favicon.ico">
+	<link href="./istics.net_files/css" rel="stylesheet" type="text/css">	
+	<style type="text/css">
+		div {
+			font-family:Helvetica, sans-serif;
+			font-size:12pt;
+			line-height:130%;
+		}
+	
+		h1,h2,h3,h4,h5,h6 {
+			font-family:"Trebuchet MS", Helvetica, sans-serif;
+		}
+		label {border: 2px none green; padding : 2px;}
+		td.oneplot {border: 1px solid gray;}
+		td.corr {font-weight : bold;}
+		button#goButton {font : 13pt bold;}
+		p.results {
+			font-family : Helvetica, sans-serif;; 
+			color : purple;
+		}
+		table.scores {
+			border : 1px solid blue; 
+			border-collapse: collapse; 
+			font-family: Arial; 
+			font-size: 10pt;
+			padding: 5px;
+		}
+		div#main {float : left;}
+		div#scores {float : right; padding : 20px;}
+		input.hidden {display : none}
+		header, footer, aside, nav, article {display: block;}
+		#game {display: table;}
+		#main {display: table-cell; padding-right: 50px;}
+		#highscores {display: table-cell; vertical-align: top;}
+	</style>
+	<script language="javascript" src="./istics.net_files/variable.js.download"></script>
+	<script language="javascript" src="./istics.net_files/plotter.js.download"></script>
+	<script language="javascript" src="./istics.net_files/pointplot.js.download"></script>
+	<script language="javascript" src="./istics.net_files/bvn_pointplotter.js.download"></script>
+	</head>
+<body>
+
+
+
+<header>
+	<h2 id="top"><a href="http://stat.istics.net/"><img src="./istics.net_files/apple.png" width="20" height="20/"></a> Guessing Correlations</h2>
+</header>
+<div id="game">
+<div id="main">
+<table style="background-color : rgb(235,235,235); border: 1px solid gray;"><tbody><tr>
+<td id="td0" class="oneplot">
+<table cellpadding="1" id="table0"><tbody><tr><td>
+<canvas id="plot0" height="200" width="200" style="border:1px solid;background:blue"></canvas>
+</td>
+<td class="corr">
+<label for="p00" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p00" name="group0"> 0.82</label> <img id="correct00" src="./istics.net_files/blank.png" alt=""><p>
+<label for="p01" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p01" name="group0">-0.64</label> <img id="correct01" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p02" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p02" name="group0">-0.79</label> <img id="correct02" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p03" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p03" name="group0">-0.97</label> <img id="correct03" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p04"><input type="radio" id="p04" name="group0" class="hidden">&nbsp;</label> <img id="correct04" src="./istics.net_files/blank.png" alt=""></p><p>
+</p></td>
+</tr></tbody></table>
+</td>
+<td id="td1" class="oneplot">
+<table cellpadding="1" id="table1"><tbody><tr><td>
+<canvas id="plot1" height="200" width="200" style="border:1px solid;background:blue"></canvas>
+</td>
+<td class="corr">
+<label for="p10" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p10" name="group1"> 0.82</label> <img id="correct10" src="./istics.net_files/blank.png" alt=""><p>
+<label for="p11" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p11" name="group1">-0.64</label> <img id="correct11" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p12" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p12" name="group1">-0.79</label> <img id="correct12" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p13" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p13" name="group1">-0.97</label> <img id="correct13" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p14"><input type="radio" id="p14" name="group1" class="hidden">&nbsp;</label> <img id="correct14" src="./istics.net_files/blank.png" alt=""></p><p>
+</p></td>
+</tr></tbody></table>
+</td>
+</tr>
+<tr><td id="td2" class="oneplot">
+<table cellpadding="1" id="table2"><tbody><tr><td>
+<canvas id="plot2" height="200" width="200" style="border:1px solid;background:blue"></canvas>
+</td>
+<td class="corr">
+<label for="p20" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p20" name="group2"> 0.82</label> <img id="correct20" src="./istics.net_files/blank.png" alt=""><p>
+<label for="p21" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p21" name="group2">-0.64</label> <img id="correct21" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p22" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p22" name="group2">-0.79</label> <img id="correct22" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p23" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p23" name="group2">-0.97</label> <img id="correct23" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p24"><input type="radio" id="p24" name="group2" class="hidden">&nbsp;</label> <img id="correct24" src="./istics.net_files/blank.png" alt=""></p><p>
+</p></td>
+</tr></tbody></table>
+</td>
+<td id="td3" class="oneplot">
+<table cellpadding="1" id="table3"><tbody><tr><td>
+<canvas id="plot3" height="200" width="200" style="border:1px solid;background:blue"></canvas>
+</td>
+<td class="corr">
+<label for="p30" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p30" name="group3"> 0.82</label> <img id="correct30" src="./istics.net_files/blank.png" alt=""><p>
+<label for="p31" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p31" name="group3">-0.64</label> <img id="correct31" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p32" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p32" name="group3">-0.79</label> <img id="correct32" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p33" style="border-style: solid; border-color: rgb(235, 235, 235);"><input type="radio" id="p33" name="group3">-0.97</label> <img id="correct33" src="./istics.net_files/blank.png" alt=""></p><p>
+<label for="p34"><input type="radio" id="p34" name="group3" class="hidden">&nbsp;</label> <img id="correct34" src="./istics.net_files/blank.png" alt=""></p><p>
+</p></td>
+</tr></tbody></table>
+</td>
+</tr>
+<tr><td id="message">Match the correlations with the scatter plots.</td><td align="right">
+<button id="goButton" type="button" onclick="check()">Check answers</button>
+</td></tr>
+</tbody></table>
+
+<p id="Score" class="results">&nbsp;</p>
+<p id="Score2" class="results">&nbsp;</p><p>
+</p><p id="ChanceOfError" class="results">Historical chance of error: 17%.</p>
+<hr style="border : none; border-top : 1px blue solid; height : 1px;">
+<h3><i>It's more fun to compete!</i></h3>
+But the competition function is down now.<p></p>
+<strike>
+To compete against your group, enter its id:</strike> <label for="group_input"> 
+<input type="text" id="group_input" size="7" value="">&nbsp;</label>
+<button id="group_button" type="button" onclick="getGroup()">Go</button>
+<br><span id="no_group_message" style="color : red">&nbsp;</span>
+
+
+<p>
+</p><h4>Log of results</h4>
+<div id="TextArea" style="border : 1px solid lightgray; width : 5in; height : 1in; overflow : auto; font-size : 11pt;">
+</div>
+<p></p><hr style="border : none; border-top : 1px blue solid; height : 1px;">
+<p>
+</p><table><tbody><tr><td>
+<img src="./istics.net_files/apple.png" width="58" height="67/"></td><td>
+<ul style="width:500px;">
+<li><a href="http://stat.istics.net/">Home:</a> Stat.Istics.Net — Bringing statistics into the 20<sup>th</sup> century</li>
+<li><a href="http://dataprogram.stat.illinois.edu/">Data Program:</a> Analyze data — Histograms, scatter plots, multiple regression, chi-square tests of independence, logistic regression.</li>
+<li><a href="http://dataprogram.stat.illinois.edu/sampling.html">Box models:</a> Randomly draws tickets from a box, to see the law of averages and the central limit theorem.</li>
+<li><a href="http://istics.net/MontyHall/">Monty Hall:</a> Win a new car!</li>
+</ul></td></tr></tbody></table>
+<a href="http://stat.istics.net/Multivariate/" alt="Multivariate Statistics: Old School" style="text-decoration: none;"><img height="150" src="./istics.net_files/BookCoverImage1.jpg">
+</a>
+<a href="http://stat.istics.net/MathStat/" alt="Multivariate Statistics: Old School" style="text-decoration: none;"><img height="150" src="./istics.net_files/BookCoverImage2.jpg">
+</a>
+<a href="https://www.amazon.com/Analyzing-Modeling-Monographs-Statistics-Probability/dp/0412995212/" alt="Analyzing and Modeling Rank Data" style="text-decoration: none;"><img height="150" src="./istics.net_files/RankBook.jpg">
+</a>
+<a href="http://stat.istics.net/Stat100/" alt="Stat 100" style="text-decoration: none;"><img height="150" src="./istics.net_files/Stat100_cover.jpg">
+</a>
+</div>
+<p>&nbsp;</p>
+<div id="highscores" style="display : none">
+	<div id="scoretable1">&nbsp;</div>
+	<div id="scoretable2">&nbsp;</div>
+	<button id="changescorebutton" type="button" value="Click!" onclick="changeScoreTable()">&nbsp;</button>
+</div>
+</div>
+
+<script type="text/javascript">
+	var ta = document.getElementById("TextArea");
+	var score = document.getElementById("Score");
+	var score2 = document.getElementById("Score2");
+	var scoretable1 = document.getElementById("scoretable1");
+	var highscores = document.getElementById("highscores");
+	var changeScoreButton = document.getElementById("changescorebutton");
+	var chanceOfError = document.getElementById("ChanceOfError");
+        var time = Date.now();
+
+	var name = "";
+	
+	function print(txt) {
+		ta.innerHTML = txt+"<BR>"+ta.innerHTML;
+	}
+
+	function setrs(rs) {
+		var corrs = rs;  // an array of 4
+		var count = 0;
+		return function getrs() {
+			count++;
+			return({count:count,rs:corrs});
+		};
+	}
+
+	plot0 = new BVNPointPlotter(document.getElementById("plot0"));
+	plot1 = new BVNPointPlotter(document.getElementById("plot1"));
+	plot2 = new BVNPointPlotter(document.getElementById("plot2"));
+	plot3 = new BVNPointPlotter(document.getElementById("plot3"));
+	plots = [plot0,plot1,plot2,plot3];
+	
+	var button = document.getElementById("goButton");
+	var message = document.getElementById("message");
+	
+	radios = [];
+	corrects = [];
+	labels = [];
+	
+	for(var i=0;i<4;i++) {
+		radios[i] = [];
+		corrects[i] = [];
+		labels[i] = [];
+		for(var j=0;j<5;j++) {
+			radios[i][j] = document.getElementById(("p"+i)+j);
+			corrects[i][j] = document.getElementById(("correct"+i)+j);
+			labels[i][j] = radios[i][j].parentNode;
+		}
+	}
+
+	
+	//trueRs = new Variable(4);
+	var trueRs;
+	guesses = new Variable([-1,-1,-1,-1]);
+	guessRs = new Variable(4);
+	sortedRs = new Variable(4);
+	
+	iCorrect = 0;
+	nCorrect = 0;
+	nRounds = 0;
+	bestStreak = 0;
+	currentStreak = 0;
+	streakIntact = true;
+	resultsString = "";
+	session_number = Math.round(Math.random()*1000000);
+	
+	isGroup = false;
+	groupid = "";
+	showtop = 20;
+	minscore = 0;
+	lowscore = 0;
+        var pError = 0;
+	
+	function getRs() {
+		var tr = new Variable(4);
+		for(var i=0;i<4;i++) {
+			tr.x[i] = Math.round(100*plots[i].r)/100;
+			plots[i].r = 0;
+			plots[i].rho = 0;
+		}
+		trueRs = setrs(tr);
+	}
+	
+	function displayRs() {
+		for(var i=0;i<4;i++) {	
+			guesses.x[i] = -1;
+			for(var j=0;j<4;j++) {
+				var r = sortedRs.x[j];
+				var txt = ""+r;
+				if(r==0) {
+					txt = "\ 0.00";
+				} else if(r==1) {
+					txt = "\ 1.00";
+				} else if (r==-1) {
+					txt = "-1.00";
+				} else if(r>0) {
+					txt = "\ "+txt;
+				}
+				if(txt.length<5) txt += "0";
+				labels[i][j].childNodes[1].data = txt;
+				labels[i][j].style.borderStyle = "solid";
+				labels[i][j].style.borderColor = "rgb(235,235,235)";
+				corrects[i][j].src = "blank.png";
+				radios[i][j].checked = false;
+			}
+			corrects[i][4].src = "blank.png";
+			radios[i][4].checked = true;
+			
+		}
+	}
+	
+	function changeToGo() {
+		button.childNodes[0].data = "Get new plots";
+		button.attributes.onClick.value = "go()";
+		message.firstChild.data = "";
+	}
+		
+	function changeToCheck() {
+		button.childNodes[0].data = "Check answers";
+		button.attributes.onClick.value = "check()";
+		message.firstChild.data = "Match the correlations with the scatter plots.";
+		chanceOfError.firstChild.data = "Historical chance of error: "+pError+"%."
+
+	}
+		
+	
+	
+
+	function go() {
+		for(i=0;i<4;i++) {
+			p = plots[i];
+			p.setRho();
+			p.n = 100;
+			p.go();
+		}
+		getRs();
+		sortedRs.equals(trueRs().rs);
+		sortedRs.sort();
+		sortedRs.x.reverse();
+		pError = Math.round(100*prob());
+
+		displayRs();
+		changeToCheck();
+		if(!streakIntact) currentStreak = 0;
+	}
+	
+	
+	function prob() {
+		var z = new Variable(4);
+		for(var i=0;i<4;i++) {
+			var r = sortedRs.x[i]*.999;
+			z.x[i] = .5*Math.log((1+r)/(1-r));
+		}
+		var d = new Variable(3);
+		for(var i=0;i<3;i++) {
+			d.x[i] = z.x[i]-z.x[i+1];
+		}
+		d.sort();
+		var m = d.x[0];
+		if(m==0) m = d.x[1];
+		if(m==0) m = d.x[2]
+		if(m==0) return(0);
+		var lp = 0.091 - 5.315*m;
+		lp = Math.exp(lp);
+		lp = lp/(1+lp);
+		return(lp);	
+	}
+		
+	// The fifth radio button is hidden, but checked if no other button is checked.
+
+	function getGuesses() {
+		for(var i=0;i<4;i++) {
+			for(var j=0;j<5;j++) {
+				if(radios[i][j].checked) {
+					guesses.x[i] = j;
+					if(j<4) {
+						guessRs.x[i] = sortedRs.x[j];
+					} else {
+						guessRs.x[i] = 2;
+					}
+				}
+			}
+		}
+	}
+		
+	
+	function check() {
+		iCorrect = 0;
+		getGuesses();
+		var tr = trueRs();
+		for(var i=0;i<4;i++) {
+			var iGuess = guesses.x[i];
+			for(var j=0;j<4;j++) {
+				if(tr.rs.x[i] == sortedRs.x[j]) {
+					labels[i][j].style.borderStyle = "solid";
+					labels[i][j].style.borderColor = "green";
+				}
+				if(iGuess == j) {
+					if(tr.rs.x[i] == sortedRs.x[j]) {
+						corrects[i][j].src = "correct.png";
+						iCorrect++;
+					} else {
+						corrects[i][j].src = "wrong.png";
+					}
+				}
+				if(iGuess == 4) corrects[i][4].src = "wrong.png";
+			}
+		}
+		nCorrect += iCorrect;
+		nRounds++;
+		currentStreak += iCorrect;
+		streakIntact = (iCorrect==4);
+		if(currentStreak>bestStreak) bestStreak = currentStreak;
+		pct = Math.round(2500*nCorrect/nRounds)/100;
+		var txt2 = "Current streak: "+currentStreak+" correct in a row";
+		if(streakIntact) {
+			txt2 += ", still intact. ";
+		} else {
+			txt2 += ", no longer intact. ";
+		}
+		txt2 += "Best streak so far is "+bestStreak+".";
+		var txt = "Round "+nRounds+" result: "+iCorrect+" correct. Total so far: "+nCorrect+" out of "+(4*nRounds)+" = "+pct+"%.";
+		score.firstChild.data = txt;
+		score2.firstChild.data = txt2;
+		print(txt);
+		if(tr.count>2) currentStreak = 0;
+		if(!streakIntact) {
+			checkStreak();
+		}
+
+		recordResults();
+		changeToGo();
+	}
+
+	function recordResults() {
+		resultsString =session_number+","+ trueRs.x+","+guessRs.x+";";
+		var req = new XMLHttpRequest();
+		req.open('POST', 'writescorestofile.php', true);
+		req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		req.send("data="+escape(resultsString));
+	}
+
+	function recordLogin() {
+		var req = new XMLHttpRequest();
+		req.open('POST', 'writelogintofile.php', true);
+		req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		//req.onreadystatechange=function() {
+  		//	alert(req.responseText);
+                //};
+ 		req.send("data="+escape(groupid));
+	}
+
+
+	function checkStreak() {
+		if(!isGroup) return;
+		if(currentStreak < minscore) return;
+		if(currentStreak == 0) return;
+		
+		if(nscores < showtop || showtop==0 || currentStreak >= lowscore) {
+			print("The current streak goes on the "+groupid+" board!");
+			sendScore();
+		}
+	}
+	
+	function getName() {
+		var toptxt = "";
+		if(showtop>0) {toptxt = "Your score is in the top "+showtop+". ";}
+			
+		var nm = prompt("Congratulations! "+toptxt+"Enter your name if you wish to appear on the list.",name);
+		if(nm) {
+			name = nm.substring(0,21);
+		}
+		return(nm);
+	}
+	
+	
+	
+	function sendScore() {
+		var nm = getName();
+		if(!nm) return;
+                var newt = Date.now();
+                if(newt-time < 1000*currentStreak) {
+                       time = newt;
+                       return;
+                }
+                var req = new XMLHttpRequest();
+		req.open('POST', 'acceptscore_js.php', true);
+		req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+		req.onreadystatechange=function() {
+  			if (req.readyState==4 && req.status==200) {
+				//getGroup();
+                                getGroupScores(groupid);
+    		        }
+  		}
+                var ok = 167676;			
+		req.send("group_id="+groupid+"&score="+currentStreak+"&name="+encodeURI(name)+"&ok="+ok+"&t1="+time+"&t2="+newt);
+		time = newt;
+			
+	}
+		
+
+	function getGroupScores(txt) {
+		var req = new XMLHttpRequest();
+		req.open('POST', 'getscores_js.php', true);
+		req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		req.onreadystatechange=function() {
+  			if (req.readyState==4 && req.status==200) {
+  				if(req.responseText==0) {
+  					document.getElementById("no_group_message").firstChild.data="*** There is no group with id = "+txt+".";
+  				} else {
+			    	scoretable1.innerHTML=req.responseText;
+			    	isGroup = true;
+			    	highscores.style.display = 'table-cell';
+			    	setupChangeScoreButton(txt);
+			    	getTarget();
+			    }
+    		}
+  		}			
+		req.send("group_id="+txt);
+	}
+	
+	function getGroup() {
+		document.getElementById("no_group_message").firstChild.data="";
+		groupid = document.getElementById("group_input").value.toLowerCase();
+                //if(groupid=="world") return;
+                time = Date.now();
+                getGroupScores(groupid);
+                recordLogin();
+	
+	}
+	
+	function getTarget() {
+		showtop = document.getElementById("toptoshow").value;
+		lowscore = document.getElementById("lowscore").value;
+		minscore = document.getElementById("minscore").value;
+		nscores = document.getElementById("nscores").value;
+		//print(showtop+" "+lowscore+" "+minscore);
+	}
+	
+	function setupChangeScoreButton(txt) {
+		if(groupid == 'world') {
+			changeScoreButton.style.display = 'none';
+			return;
+		}
+		changeScoreButton.style.display = 'block';
+		if(txt == 'world') {
+			changeScoreButton.firstChild.data = "Show the scores for "+groupid;
+		} else {
+			changeScoreButton.firstChild.data = "Show the scores for the world";
+		}
+	}
+	
+	function changeScoreTable() {
+		var txt = document.getElementById("groupshowing").value;
+		if(txt == 'world') getGroupScores(groupid);
+		else getGroupScores('world');
+	}
+	
+	
+	
+	go();
+	
+</script>
+
+
+
+</body></html>

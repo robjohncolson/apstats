@@ -1,0 +1,85 @@
+
+	
+	variablebase = {
+		
+		x : [],
+		
+		n : function() {return(this.x.length);},
+		
+		mean : function() {
+			var n = this.x.length;
+			if(n==0) return(0);
+			var xbar = 0;
+			for(var i=0;i<n;i++) {
+				xbar += this.x[i];
+			}
+			return(xbar/n);
+		},
+		
+		variance : function() {
+			var n = this.x.length;
+			if(n==0) return(0);
+			var xbar = this.mean();
+			var xss = 0;
+			for(var i=0;i<n;i++) {
+				var dx = this.x[i] - xbar;
+				xss += dx*dx;
+			}
+			return(xss/n);
+		},
+		
+		covariance : function(y) {
+			var n = this.x.length;
+			if(y.n()<n) n = y.n();
+			if(n==0) return(0);
+			var xbar = this.mean();
+			var ybar = y.mean();
+			var cov = 0;
+			for(var i=0;i<n;i++) {
+				var dx = this.x[i] - xbar;
+				var dy = y.x[i] - ybar;
+				cov += dx*dy;
+			} 
+			return(cov/n);
+		},
+		
+		correlation : function(y) {
+			var vv = y.variance()*this.variance();
+			if(vv==0) return("NaN");
+			return(this.covariance(y)/Math.sqrt(vv));
+		},
+		
+		sort : function() {
+			this.x.sort(function(a,b){return(a-b)});
+		},
+		
+		clone : function() {
+			var nn = this.n();
+			var z = new Variable(nn);
+			for(var i=0;i<nn;i++) {
+				z.x[i] = this.x[i];
+			};
+			return(z);
+		},
+		
+		equals : function(oldv) {
+			for(var i=0;i<oldv.n();i++) {
+				this.x[i] = oldv.x[i];
+			}
+		}
+			
+		
+		
+	}
+	
+	function Variable(initx) {
+		if(initx instanceof Array) {
+			this.x = initx;
+		} else if(!isNaN(initx)) {
+			this.x = new Array(initx);
+			for(var i=0;i<initx;i++) this.x[i] = 0;
+		}
+	}
+	
+	Variable.prototype = variablebase;
+	

@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{AP Statistics - Unit 2}
+\rhead{Scatterplot Correlation Project}
+\cfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+\LARGE \textbf{Exploring Relationships Between Quantitative Variables}
+\end{center}
+
+\section*{Objective}
+Work in small groups to collect data from classmates, create a scatterplot, estimate correlation using the ellipse method, and describe the relationship using the DUFS framework (Direction, Unusual features, Form, and Strength).
+
+\section*{Materials Needed}
+\begin{itemize}[noitemsep]
+    \item Chart paper or printed \textbf{equal-scale graph paper}
+    \item Ruler or measuring tape
+    \item Markers or pencils  
+    \item Class shared data form (Google Form or paper slip)
+    \item Calculator or phone (optional for actual $r$ calculation)
+    \item ``Measure the Correlation'' worksheet
+\end{itemize}
+
+\section*{Step-by-Step Directions}
+
+\subsection*{Step 1: Select Your Variable Pair (3 minutes)}
+Each group chooses a \textbf{unique} pair of quantitative variables. Examples:
+\begin{itemize}[noitemsep]
+    \item \textbf{Height (cm) vs Wingspan (cm)} — expected strong positive linear
+    \item \textbf{Hand span (cm) vs Foot length (cm)} — expected moderate positive
+    \item \textbf{Ruler drop distance (cm) vs Taps in 10 seconds} — expected negative
+    \item \textbf{Minutes since last ate vs Hunger rating (0--10)} — expected curved positive
+    \item \textbf{Birthday (day of year, 1--365) vs Shoe length (cm)} — expected near zero
+\end{itemize}
+
+\subsection*{Step 2: Collect Your Data (12 minutes)}
+\begin{itemize}[noitemsep]
+    \item Access the shared class data form for survey variables
+    \item For measurement pairs, collect data from at least 12--18 classmates
+    \item Record all data pairs in your data table
+\end{itemize}
+
+\subsection*{Step 3: Plot the Data — \textcolor{red}{EQUAL SCALES REQUIRED!} (8 minutes)}
+\begin{tcolorbox}[colback=yellow!10!white,colframe=red!50!black]
+\textbf{Critical:} Both axes must use the \textbf{same scale}\\
+Example: If 1 cm = 10 units on the $x$-axis, then 1 cm = 10 units on the $y$-axis\\
+This is \textbf{essential} for the ellipse method to work correctly!
+\end{tcolorbox}
+\begin{itemize}[noitemsep]
+    \item Label both axes with variable names and units
+    \item Mark the scale clearly (e.g., ``1 grid square = 5 units'')
+    \item Plot all data points accurately
+\end{itemize}
+
+\subsection*{Step 4: Draw and Measure the Ellipse (8 minutes)}
+\begin{enumerate}[noitemsep]
+    \item Draw a \textbf{symmetrical ellipse} that encompasses most of the data cloud
+    \item Mark and draw the \textbf{major axis} (longest diameter)
+    \item Mark and draw the \textbf{minor axis} (perpendicular to major, shortest diameter)
+    \item Measure both axes in centimeters
+    \item Apply the formula:
+    \[
+    \boxed{r \approx \pm\left(1 - \frac{\text{length of minor axis}}{\text{length of major axis}}\right)}
+    \]
+    \item Determine the \textbf{sign} based on the direction of the pattern:
+    \begin{itemize}[noitemsep]
+        \item Positive (+) if pattern slopes upward
+        \item Negative (--) if pattern slopes downward
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Step 5: Write Your DUFS Statement (5 minutes)}
+Use this template to describe your results:
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black]
+``The association between \underline{\hspace{2cm}} and \underline{\hspace{2cm}} appears \underline{linear/curved/no pattern} with a \underline{positive/negative/no} direction and \underline{weak/moderate/strong} strength. 
+
+Our ellipse estimate gives $r \approx$ \underline{\hspace{1cm}}, which \underline{supports/confirms} this description.
+
+We observed \underline{[describe any outliers, clusters, or unusual features]}.
+
+Although there is an association, \textbf{correlation does not imply causation}.''
+\end{tcolorbox}
+
+\subsection*{Step 6: Create Your Poster (4 minutes)}
+Your poster must include:
+\begin{itemize}[noitemsep]
+    \item[$\square$] Title with both variable names and units
+    \item[$\square$] Group members' names
+    \item[$\square$] Data table (12--18 ordered pairs)
+    \item[$\square$] Labeled scatterplot with \textbf{equal scales stated}
+    \item[$\square$] Ellipse with major/minor axes clearly marked
+    \item[$\square$] Calculated $r$ value with work shown
+    \item[$\square$] Complete DUFS statement in context
+    \item[$\square$] ``Correlation $\neq$ Causation'' reminder
+\end{itemize}
+
+\subsection*{Step 7: Gallery Walk — Peer Review (5 minutes)}
+Walk around and leave two sticky notes on other groups' posters:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Green note:} What you think the sign of $r$ should be and why
+    \item \textbf{Yellow note:} One unusual feature you notice (outlier, cluster, curve, etc.)
+\end{enumerate}
+
+\section*{Quick Reference}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Strength Guidelines} & \textbf{Based on $|r|$} \\
+\hline
+Strong & $|r| > 0.7$ \\
+Moderate & $0.4 \leq |r| \leq 0.7$ \\
+Weak & $|r| < 0.4$ \\
+\hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Form} & \textbf{Look for...} \\
+\hline
+Linear & Points follow a straight line pattern \\
+Curved & Points follow a curved pattern \\
+No pattern & Points scattered randomly \\
+\hline
+\end{tabular}
+
+\section*{Extension Activity (If Time Permits)}
+Use Desmos or a graphing calculator to find the actual correlation coefficient $r$. Compare it to your ellipse estimate. Why might they differ? Consider:
+\begin{itemize}[noitemsep]
+    \item Was your ellipse truly symmetrical?
+    \item Did you use perfectly equal scales?
+    \item Are there outliers affecting the calculation?
+    \item Is the relationship actually linear?
+\end{itemize}
+
+\end{document}

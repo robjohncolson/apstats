@@ -1,0 +1,303 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{AP Statistics - Unit 2}
+\rhead{Teacher Implementation Guide}
+\cfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+\LARGE \textbf{Teacher Guide for Scatterplot Correlation Project}
+\end{center}
+
+\section{Purpose and Learning Objectives}
+This hands-on project strengthens student understanding of bivariate relationships, specifically:
+\begin{itemize}
+    \item Describing association (form, direction, strength) in context
+    \item Quantifying linear strength using correlation coefficient $r$
+    \item Applying the ellipse method as a visual tool for estimating $r$
+    \item Distinguishing correlation from causation
+\end{itemize}
+
+\section{AP Statistics Standards Alignment}
+
+\begin{longtable}{|p{2.5cm}|p{9cm}|p{3cm}|}
+\hline
+\textbf{Standard} & \textbf{Description} & \textbf{Project Component} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Standard} & \textbf{Description} & \textbf{Project Component} \\
+\hline
+\endhead
+DAT-1.A.1 & Describe patterns in bivariate data including form, direction, strength, and unusual features & DUFS statement \\
+\hline
+DAT-1.A.2/3 & Identify and explain positive vs negative associations in context & Direction identification \\
+\hline
+DAT-1.A.5 & Describe strength of association using appropriate language & Strength description with $r$ \\
+\hline
+DAT-1.B.1 & Calculate and interpret correlation coefficient $r$ & Ellipse method calculation \\
+\hline
+DAT-1.C.1 & State properties of $r$ (unit-free, $-1 \leq r \leq 1$) & Understanding $r$ bounds \\
+\hline
+DAT-1.C.2 & Explain that correlation does not imply causation & Causation disclaimer \\
+\hline
+DAT-1.A.3 & Identify explanatory and response variables & Variable labeling \\
+\hline
+\end{longtable}
+
+\section{Pre-Class Preparation (15 minutes)}
+
+\subsection{Materials to Prepare}
+\begin{itemize}
+    \item \textbf{Google Form} with 6--8 quick survey questions (see suggestions below)
+    \item \textbf{Equal-scale graph paper templates} (print on 11×17 paper if possible)
+    \item \textbf{Station supplies} for measurement pairs:
+    \begin{itemize}
+        \item Tape measures/meter sticks (at least 3)
+        \item Rulers for reaction test (2--3)
+        \item Stopwatches or phone timers
+        \item Masking tape for marking distances
+    \end{itemize}
+    \item \textbf{Sticky notes} in two colors for gallery walk
+    \item \textbf{Posted materials:}
+    \begin{itemize}
+        \item Variable choice board (on board or projected)
+        \item DUFS sentence frames
+        \item Equal scaling reminder poster
+    \end{itemize}
+\end{itemize}
+
+\subsection{Google Form Survey Questions}
+Include these for shared data collection:
+\begin{enumerate}
+    \item Hours of sleep last night (to nearest 0.5)
+    \item Screen time yesterday (hours)
+    \item Minutes since you last ate
+    \item Current hunger level (0--10 scale)
+    \item Number of apps on your phone
+    \item Birthday (day of year, 1--365)
+    \item Number of siblings
+    \item Estimated hours spent on homework weekly
+\end{enumerate}
+
+\section{Class Timeline (45 minutes total)}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!50!black]
+\textbf{Timing Adjustment:} Full activity requires 45 minutes (40 min work + 5 min gallery)
+\end{tcolorbox}
+
+\subsection{Launch (0--5 minutes)}
+\begin{itemize}
+    \item Show example scatterplot on board
+    \item Quick review: ``What's the direction? Strength?''
+    \item Emphasize: \textbf{``Equal scales are essential for the ellipse method!''}
+    \item Display the ellipse formula prominently
+\end{itemize}
+
+\subsection{Group Formation \& Variable Selection (5--8 minutes)}
+\begin{itemize}
+    \item Form groups of 2--3 students
+    \item Each group selects unique variable pair from board
+    \item Assign roles: data collector, plotter, calculator, writer
+    \item Distribute materials to each group
+\end{itemize}
+
+\subsection{Data Collection Phase (8--20 minutes)}
+\begin{itemize}
+    \item \textbf{All students:} Complete Google Form (2 min)
+    \item \textbf{Survey variable groups:} Pull data from form responses
+    \item \textbf{Measurement groups:} Set up station and collect from 12--18 classmates
+    \item \textbf{Teacher:} Circulate to ensure efficient data collection
+\end{itemize}
+
+\subsection{Plotting \& Analysis (20--32 minutes)}
+\begin{itemize}
+    \item \textbf{Minutes 20--24:} Create scatterplot with equal scales
+    \item \textbf{Minutes 24--28:} Draw ellipse, mark axes
+    \item \textbf{Minutes 28--32:} Calculate $r$, determine sign
+    \item \textbf{Teacher:} Check equal scaling before groups draw ellipses!
+\end{itemize}
+
+\subsection{DUFS Statement Writing (32--37 minutes)}
+\begin{itemize}
+    \item Groups write contextual conclusions
+    \item Include all required elements
+    \item Add ``correlation $\neq$ causation'' statement
+\end{itemize}
+
+\subsection{Gallery Walk (37--45 minutes)}
+\begin{itemize}
+    \item Post all posters
+    \item Students rotate with sticky notes
+    \item Quick whole-class debrief: Which shows strongest $|r|$? Any surprises?
+\end{itemize}
+
+\section{Variable Pair Options}
+
+\begin{center}
+\begin{tabular}{|l|l|c|l|}
+\hline
+\textbf{Variable Pair} & \textbf{Expected Pattern} & \textbf{Expected $r$} & \textbf{Type} \\
+\hline
+Height vs Wingspan & Strong positive linear & $+0.8$ to $+0.95$ & Measurement \\
+Hand span vs Foot length & Moderate positive & $+0.5$ to $+0.7$ & Measurement \\
+Shoe size vs Height & Strong positive & $+0.7$ to $+0.9$ & Mixed \\
+\hline
+Screen time vs Sleep hours & Moderate negative & $-0.3$ to $-0.6$ & Survey \\
+Ruler drop vs Reaction taps & Moderate negative & $-0.4$ to $-0.7$ & Measurement \\
+\hline
+Minutes since ate vs Hunger & Curved positive & $r$ misleading & Survey \\
+Phone apps vs Homework hrs & Weak/none & $-0.2$ to $+0.2$ & Survey \\
+\hline
+Birthday vs Shoe length & No association & $-0.1$ to $+0.1$ & Mixed \\
+Birth month vs Siblings & No association & $-0.1$ to $+0.1$ & Survey \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Assessment Rubric}
+
+\begin{center}
+\begin{tabular}{|p{4cm}|p{7cm}|c|}
+\hline
+\textbf{Component} & \textbf{Criteria} & \textbf{Points} \\
+\hline
+\textbf{Data \& Labels} & 
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+    \item Variables clearly identified with units
+    \item $x$ and $y$ axes properly labeled
+    \item Data table complete (12--18 pairs)
+\end{itemize} & 2 \\
+\hline
+\textbf{Graph Quality} & 
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+    \item Equal scales used and explicitly stated
+    \item Points plotted accurately
+    \item Axes have appropriate range
+\end{itemize} & 2 \\
+\hline
+\textbf{Ellipse \& $r$ Calculation} & 
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+    \item Symmetric ellipse drawn
+    \item Major/minor axes marked and measured
+    \item Formula correctly applied
+    \item Correct sign assigned
+\end{itemize} & 3 \\
+\hline
+\textbf{DUFS Statement} & 
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+    \item Form, direction, strength described
+    \item Uses calculated $r$ value
+    \item Context maintained throughout
+    \item Includes causation disclaimer
+\end{itemize} & 3 \\
+\hline
+\multicolumn{2}{|r|}{\textbf{Total}} & \textbf{10} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Common Issues \& Solutions}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=\textbf{Critical Issues to Monitor}]
+\begin{enumerate}
+    \item \textbf{Unequal Scales}
+    \begin{itemize}
+        \item Check each group's axes before they draw ellipse
+        \item Have them write ``1 cm = \_\_ units'' for both axes
+        \item Provide pre-scaled templates if needed
+    \end{itemize}
+    
+    \item \textbf{Ellipse Drawing}
+    \begin{itemize}
+        \item Emphasize symmetry
+        \item Major axis goes through ``longest'' direction
+        \item Minor axis is perpendicular to major
+    \end{itemize}
+    
+    \item \textbf{Sign Confusion}
+    \begin{itemize}
+        \item Positive: points trend up-right
+        \item Negative: points trend down-right
+        \item Near zero: no clear trend
+    \end{itemize}
+\end{enumerate}
+\end{tcolorbox}
+
+\section{Differentiation Strategies}
+
+\subsection{For Struggling Students}
+\begin{itemize}
+    \item Provide pre-made equal-scale grids
+    \item Pair with stronger peer
+    \item Give ``high correlation'' pairs (Height vs Wingspan)
+    \item Provide completed example as reference
+\end{itemize}
+
+\subsection{For Advanced Students}
+\begin{itemize}
+    \item Have them calculate actual $r$ using technology
+    \item Compare ellipse estimate to calculated value
+    \item Explore residual plots (preview of Unit 2.6)
+    \item Investigate effect of outliers on $r$
+\end{itemize}
+
+\section{Extensions for Next Class}
+
+\begin{enumerate}
+    \item \textbf{Technology Comparison}
+    \begin{itemize}
+        \item Calculate actual $r$ using Desmos or calculator
+        \item Discuss sources of discrepancy with ellipse method
+    \end{itemize}
+    
+    \item \textbf{Regression Preview} (Unit 2.6)
+    \begin{itemize}
+        \item Add least-squares regression line
+        \item Calculate and interpret slope
+        \item Make predictions using the model
+    \end{itemize}
+    
+    \item \textbf{Class Meta-Analysis}
+    \begin{itemize}
+        \item Combine all groups' $r$ values
+        \item Discuss range of correlations observed
+        \item Which variables were most predictable?
+    \end{itemize}
+\end{enumerate}
+
+\section{Safety Reminders}
+\begin{itemize}
+    \item No collection of weight, grades, income, or medical information
+    \item All participation is voluntary with opt-out options
+    \item Measurement activities should be done safely (no running for reaction tests)
+\end{itemize}
+
+\section{Success Indicators}
+Students successfully complete this project when they:
+\begin{itemize}
+    \item Accurately identify direction from their scatterplot
+    \item Reasonably estimate $r$ using the ellipse method
+    \item Describe strength using their calculated $r$
+    \item Write conclusions in context
+    \item Distinguish correlation from causation
+\end{itemize}
+
+\vspace{1cm}
+\noindent\textbf{Note:} This project directly addresses the learning gaps you identified—students will leave with a tactile, visual understanding of correlation that connects the abstract $r$ value to the concrete pattern they see in their data.
+
+\end{document}

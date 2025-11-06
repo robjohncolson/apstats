@@ -1,0 +1,45 @@
+	BVNPointPlotter = function(canvas) {
+		this.setCanvas(canvas);
+		this.setBounds(-3.5,-3.5,3.5,3.5);
+		this.setFillStyle("yellow");
+		this.pointplot = new PointPlot();
+		this.pointplot.radius = 2;
+		this.addPart(this.pointplot);
+		this.rho = 0;
+		this.n = 100;
+		this.r = 0;
+		
+		this.setRho = function() {
+			this.rho = Math.sqrt(Math.random());
+			if(Math.random()<.5) this.rho = -this.rho;
+		}
+			
+		this.go = function() {
+			var bvna = bvn(this.rho,this.n);	
+			this.pointplot.x = bvna[0].x;
+			this.pointplot.y = bvna[1].x;
+			this.paint();
+			this.r = bvna[0].correlation(bvna[1]);
+		}
+	}
+	
+	
+	BVNPointPlotter.prototype = new Plotter();
+	
+	function bvn(rho,n) {
+		if(rho>1) rho = 1;
+		if(rho<-1) rho = -1;
+		var x = new Variable(n);
+		var y = new Variable(n);
+		var c = Math.sqrt(1-rho*rho);
+		for(var i=0;i<n;i++) {
+			var u = Math.sqrt(-2*Math.log(Math.random()));
+			var v = 2*Math.PI*Math.random();
+			var w = c*u*Math.cos(v);
+			var z = u*Math.sin(v);
+			x.x[i] = w+rho*z;
+			y.x[i] = z;
+		}
+		return(new Array(x,y));
+	}
+	

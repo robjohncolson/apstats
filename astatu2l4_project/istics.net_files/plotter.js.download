@@ -1,0 +1,73 @@
+	plotterbase = {
+
+		canvas  :  null,
+		context : null,
+
+		plotparts : [],
+
+		left  :  0,
+		bottom  : 100, 
+		right  : 100,
+		top  :  0,
+
+		width  :  function() {return(this.right-this.left)},
+		height  :  function() {return(this.bottom-this.top)},
+		
+		setCanvas : function(cnvs) {
+			this.canvas = cnvs;			
+			this.bottom = cnvs.height;
+			this.right = cnvs.width;
+			this.context = cnvs.getContext("2d");
+		},
+		
+		setBounds  :  function(l,b,r,t) {
+			this.left = l;
+			this.bottom = b;
+			this.top = t;
+			this.right = r;
+		},
+		
+		setFillStyle : function(filltxt) {
+			this.context.fillStyle = filltxt;
+		},
+
+		px : function(x) {  // Gives original x-location
+			return(this.canvas.width*(x-this.left)/(this.right-this.left));
+		},
+		
+		py : function(y) {  // Gives original y-location
+			return(this.canvas.height*(y-this.top)/(this.bottom-this.top));
+		},
+		
+		x : function(px) {  // Gives virtual x-location
+			return(this.left+(this.right-this.left)*px/this.canvas.width);
+		},
+		
+		y : function(py) {  // Gives virtual y-location
+			return(this.top+(this.bottom-this.top)*py/this.canvas.height);
+		},
+		
+
+		
+		clear : function() {
+			this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+		},
+		
+		addPart : function(pp) {
+			pp.plotter = this;
+			this.plotparts.push(pp);
+		},
+		
+		paint : function() {
+			this.clear();
+			for(var i=0;i<this.plotparts.length;i++) {
+				this.plotparts[i].paint();
+			}
+		}
+	}
+
+	function Plotter(canvas) {
+		if(canvas) this.setCanvas(canvas);
+	}
+	
+	Plotter.prototype = plotterbase;
