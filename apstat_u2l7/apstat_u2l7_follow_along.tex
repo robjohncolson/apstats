@@ -1,0 +1,220 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{AP Statistics - Topic 2.7}
+\chead{Residuals Follow-Along}
+\rhead{Name: \underline{\hspace{2in}}}
+
+\begin{document}
+
+\section*{Video 1: Calculating and Interpreting Residuals}
+
+\subsection*{Part A: Building Understanding (0:00 - 1:37)}
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Context Connection:} The study examines supermarkets in San Antonio, Texas. Before watching, predict: Would you expect stores in wealthier neighborhoods to have more or fewer organic food options? Why?
+
+\vspace{0.5in}
+
+\item \textbf{Data Interpretation (1:13-1:37):} As you view the scatter plot:
+\begin{enumerate}[label=(\alph*)]
+\item The regression equation is $\hat{y} = 0.0007x + 2.76$. What does the slope of 0.0007 tell us in context?
+
+\vspace{0.75in}
+
+\item For every \$10,000 increase in average household income, how many additional organic items would we expect?
+
+\vspace{0.5in}
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Part B: Understanding Residuals (1:37 - 3:35)}
+
+\begin{enumerate}[label=\arabic*., resume]
+\item \textbf{Definition Focus (1:37-1:57):} Complete the formula:
+$$\text{Residual} = \underline{\hspace{1in}} - \underline{\hspace{1in}} = y - \hat{y}$$
+
+\item \textbf{Calculation Practice (2:28-3:23):} Work along with the example:
+\begin{enumerate}[label=(\alph*)]
+\item Given: Income = \$66,703, Actual organic items = 84
+\item Show the prediction calculation:
+$$\hat{y} = 0.0007(\underline{\hspace{0.75in}}) + 2.76 = \underline{\hspace{0.5in}}$$
+\item Calculate the residual:
+$$\text{Residual} = \underline{\hspace{0.3in}} - \underline{\hspace{0.3in}} = \underline{\hspace{0.3in}}$$
+\end{enumerate}
+
+\item \textbf{Interpretation (3:23-3:53):} Complete this interpretation table:
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Residual Sign} & \textbf{Meaning} & \textbf{Actual vs. Predicted} \\
+\hline
+Positive (+) & Model \underline{\hspace{1.5in}} & Actual \underline{\hspace{0.3in}} Predicted \\
+\hline
+Negative (-) & Model \underline{\hspace{1.5in}} & Actual \underline{\hspace{0.3in}} Predicted \\
+\hline
+\end{tabular}
+\end{center}
+
+\item \textbf{Critical Thinking:} A store has a residual of -15.2 organic items. Write a complete sentence interpreting this in context.
+
+\vspace{0.75in}
+\end{enumerate}
+
+\subsection*{Part C: Constructing Residual Plots (3:53 - 5:22)}
+
+\begin{enumerate}[label=\arabic*., resume]
+\item \textbf{Axes Understanding (4:03-4:42):} In a residual plot:
+\begin{enumerate}[label=(\alph*)]
+\item What variable is on the x-axis? \underline{\hspace{2in}}
+\item What is plotted on the y-axis? \underline{\hspace{2in}}
+\item Where is the reference line drawn? At y = \underline{\hspace{0.3in}}
+\end{enumerate}
+
+\item \textbf{Plot Analysis:} Sketch what you expect to see in the residual plot space below. Mark the horizontal reference line clearly.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[->] (0,0) -- (8,0) node[right] {Income};
+\draw[->] (0,-2) -- (0,2) node[above] {Residual};
+\draw[dashed, gray] (0,0) -- (8,0);
+\foreach \y in {-1,1} {
+    \draw (0,\y) -- (-0.1,\y) node[left] {\y};
+}
+\end{tikzpicture}
+\end{center}
+
+\item \textbf{Prediction (5:16-5:22):} Before watching Video 2, what might it mean if all the residuals were above the zero line? What about if they showed a curved pattern?
+
+\vspace{0.75in}
+\end{enumerate}
+
+\newpage
+
+\section*{Video 2: Assessing Model Fit with Residual Plots}
+
+\subsection*{Part D: Recognizing Good Fit (1:26 - 2:23)}
+
+\begin{enumerate}[label=\arabic*., resume]
+\item \textbf{Pattern Recognition:} When a linear model is a good fit, the residual plot shows:
+\begin{itemize}
+\item Apparent \underline{\hspace{1in}} in the residual plot
+\item Scatter centered at \underline{\hspace{0.5in}}
+\item No clear \underline{\hspace{1in}}
+\end{itemize}
+
+\item \textbf{Conceptual Understanding:} Why does ``random noise'' in a residual plot indicate a good model? (Hint: What has the model captured vs. what remains?)
+
+\vspace{1in}
+\end{enumerate}
+
+\subsection*{Part E: Recognizing Poor Fit (2:23 - 3:26)}
+
+\begin{enumerate}[label=\arabic*., resume]
+\item \textbf{Pattern Detection (2:39-3:05):} Describe the pattern seen in the ``bad fit'' example:
+
+\vspace{0.75in}
+
+\item \textbf{Diagnostic Skills:} Match each residual plot description with what it suggests:
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Residual Plot Shows} & \textbf{Suggests} \\
+\hline
+Random scatter around zero & A. Curvature in the relationship \\
+\hline
+U-shaped or inverted U pattern & B. Linear model is appropriate \\
+\hline
+Fan shape (spreading out) & C. Changing variability \\
+\hline
+\end{tabular}
+\end{center}
+\end{enumerate}
+
+\subsection*{Part F: Application and Analysis (3:26 - 4:31)}
+
+\begin{enumerate}[label=\arabic*., resume]
+\item \textbf{Real Data Analysis (3:26-3:57):} Looking at the grocery store residual plot:
+\begin{enumerate}[label=(\alph*)]
+\item What evidence suggests the model might be adequate?
+
+\vspace{0.75in}
+
+\item What subtle patterns raise concerns about the fit?
+
+\vspace{0.75in}
+\end{enumerate}
+
+\item \textbf{Decision Making:} You've created a linear model and the residual plot shows a clear curved pattern. What are your options? List at least two approaches:
+
+\begin{enumerate}[label=\roman*.]
+\item \underline{\hspace{3in}}
+\item \underline{\hspace{3in}}
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Part G: Synthesis and Reflection}
+
+\begin{enumerate}[label=\arabic*., resume]
+\item \textbf{Essential Knowledge Check:} Write the complete process for assessing a linear model:
+\begin{enumerate}[label=Step \arabic*:]
+\item Fit the linear model and find $\hat{y} = $ \underline{\hspace{1.5in}}
+\item Calculate residuals using: \underline{\hspace{2in}}
+\item Create a residual plot with \underline{\hspace{1in}} on x-axis and \underline{\hspace{1in}} on y-axis
+\item Look for \underline{\hspace{1in}} to confirm good fit, or \underline{\hspace{1in}} to identify poor fit
+\end{enumerate}
+
+\item \textbf{Real-World Connection:} Why might it matter ethically if grocery stores in lower-income areas have fewer healthy food options? How could this analysis help address the issue?
+
+\vspace{1in}
+
+\item \textbf{Extension Thinking:} If you were advising a grocery chain, what other variables besides income might predict organic food availability? List two and explain why:
+
+\vspace{1in}
+\end{enumerate}
+
+\section*{Quick Check (Complete after both videos)}
+
+\begin{enumerate}[label=\Roman*.]
+\item A residual of zero means:
+\begin{enumerate}[label=\Alph*.]
+\item The model is perfect
+\item The predicted value equals the actual value for that point
+\item The linear model is inappropriate
+\item The point is an outlier
+\end{enumerate}
+
+\item Random scatter in a residual plot is:
+\begin{enumerate}[label=\Alph*.]
+\item Evidence the model is wrong
+\item Evidence of measurement error
+\item Evidence the linear model is appropriate
+\item Evidence we need more data
+\end{enumerate}
+
+\item If residuals show a pattern, we should:
+\begin{enumerate}[label=\Alph*.]
+\item Ignore it and use the model anyway
+\item Consider a different type of model
+\item Collect more data
+\item Remove the outliers
+\end{enumerate}
+\end{enumerate}
+
+\vspace{0.5in}
+\noindent\textbf{Key Formulas to Remember:}
+\begin{itemize}
+\item Residual = Actual - Predicted = $y - \hat{y}$
+\item Positive residual $\rightarrow$ Model underestimated
+\item Negative residual $\rightarrow$ Model overestimated
+\item Random residuals $\rightarrow$ Good linear fit
+\item Patterned residuals $\rightarrow$ Consider non-linear model
+\end{itemize}
+
+\end{document}
