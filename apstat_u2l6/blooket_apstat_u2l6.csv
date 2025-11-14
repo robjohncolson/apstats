@@ -1,0 +1,107 @@
+"Blooket
+Import Template",,,,,,,
+Question #,Question Text,Answer 1,Answer 2,"Answer 3
+(Optional)","Answer 4
+(Optional)","Time Limit (sec)
+(Max: 300 seconds)","Correct Answer(s)
+(Only include Answer #)"
+Question #,Question Text,Answer 1,Answer 2,Answer 3,Answer 4,Time Limit (sec),Correct Answer(s)
+1,What does the correlation coefficient r measure?,Direction and strength of linear relationship,Only the strength of a relationship,The causation between variables,The percentage of data explained,15,1
+2,What is the range of possible values for the correlation coefficient r?,-1 to 1 inclusive,0 to 1,-? to ?,0 to 100,15,1
+3,"If r = 0.95, what does this indicate about the relationship?",Very strong positive linear relationship,Very weak positive relationship,Very strong negative relationship,No relationship,15,1
+4,What does a negative correlation coefficient indicate?,"As X increases, Y tends to decrease","As X increases, Y tends to increase",There is no relationship,The data has errors,15,1
+5,"If r = 0, what can we conclude?",No linear relationship exists,No relationship exists at all,Perfect negative correlation,The variables are identical,20,1
+6,Which correlation value indicates the strongest linear relationship?,r = -0.92,r = 0.75,r = 0.10,r = -0.45,15,1
+7,What is true about the correlation coefficient r?,It is unit-free,It has units of X/Y,It has units of Y/X,It has units of X times Y,15,1
+8,A tennis ball's height vs time has r = 0. What does this suggest?,No linear relationship (likely quadratic),No relationship at all,Perfect linear relationship,Measurement error occurred,20,1
+9,"If r = 1, what type of relationship exists?",Perfect positive linear relationship,Strong but not perfect relationship,No relationship,Perfect negative linear relationship,15,1
+10,Which r value indicates a moderate positive correlation?,r = 0.5,r = 0.95,r = -0.5,r = 0.05,15,1
+11,True or False: Correlation implies causation.,False,True,Sometimes,Only for r > 0.8,15,1
+12,What crucial distinction did the attendance example demonstrate?,Correlation does not imply causation,Strong correlations always predict outcomes,Attendance causes better test scores,Small samples give unreliable correlations,20,1
+13,"If more ice cream sales correlate with more shark attacks, what's likely the reason?",A third variable (summer/warm weather),Ice cream causes shark attacks,Sharks cause ice cream sales,The correlation is false,20,1
+14,School districts raised attendance but test scores stayed flat. This shows:,Correlation doesn't guarantee causation,The correlation was calculated wrong,Attendance doesn't matter,Test scores are random,20,1
+15,What might explain a correlation without causation?,Lurking or confounding variables,Calculation errors,Small sample size,Negative relationships,15,1
+16,"To determine if a linear model is appropriate, you must:",Look at the scatterplot,Only check if r is close to 1,Calculate r squared,Find the regression line,20,1
+17,A correlation of r = 0.94 between leaf length and area means:,Strong linear association but not necessarily best model,Linear model is definitely the best fit,94% of the data fits perfectly,Exponential model is better,20,1
+18,What can correlation alone NOT tell us about data?,Unusual features or outliers,Direction of relationship,Strength of linear relationship,Sign of relationship,20,1
+19,Which is closest to r for strong negative correlation?,r = -0.87,r = -0.14,r = 0.87,r = 0,15,1
+20,How is correlation typically calculated?,Using technology/calculator,By hand using the formula,By counting data points,By visual estimation only,15,1
+21,"If athletes who exercise more have lower resting heart rates, r is likely:",Negative and strong,Positive and strong,Zero,Positive and weak,20,1
+22,What does the magnitude (absolute value) of r tell us?,Strength of linear relationship,Direction of relationship,Causation level,Number of data points,15,1
+23,Restaurant data shows r = 0.78 between party size and time. This means:,Larger parties tend to stay longer,Larger parties leave quicker,No relationship exists,Party size causes longer stays,20,1
+24,"For the attendance study, what was the correlation value?",0.95,0.50,-0.95,0,15,1
+25,"When r is closer to zero, the linear relationship is:",Weaker,Stronger,Perfect,Negative,15,1
+26,What property makes r useful for comparing different datasets?,It is unit-free,It has standard units,It's always positive,It equals the slope,20,1
+27,"If two variables have r = -1, their relationship is:",Perfect negative linear,No relationship,Perfect positive linear,Moderately negative,15,1
+28,Why might a strong correlation not lead to successful interventions?,Confounding variables affect both,Correlations are always wrong,Interventions change correlations,Sample size was too small,20,1
+30,,,,,,,
+31,,,,,,,
+32,,,,,,,
+33,,,,,,,
+34,,,,,,,
+35,,,,,,,
+36,,,,,,,
+37,,,,,,,
+38,,,,,,,
+39,,,,,,,
+40,,,,,,,
+41,,,,,,,
+42,,,,,,,
+43,,,,,,,
+44,,,,,,,
+45,,,,,,,
+46,,,,,,,
+47,,,,,,,
+48,,,,,,,
+49,,,,,,,
+50,,,,,,,
+51,,,,,,,
+52,,,,,,,
+53,,,,,,,
+54,,,,,,,
+55,,,,,,,
+56,,,,,,,
+57,,,,,,,
+58,,,,,,,
+59,,,,,,,
+60,,,,,,,
+61,,,,,,,
+62,,,,,,,
+63,,,,,,,
+64,,,,,,,
+65,,,,,,,
+66,,,,,,,
+67,,,,,,,
+68,,,,,,,
+69,,,,,,,
+70,,,,,,,
+71,,,,,,,
+72,,,,,,,
+73,,,,,,,
+74,,,,,,,
+75,,,,,,,
+76,,,,,,,
+77,,,,,,,
+78,,,,,,,
+79,,,,,,,
+80,,,,,,,
+81,,,,,,,
+82,,,,,,,
+83,,,,,,,
+84,,,,,,,
+85,,,,,,,
+86,,,,,,,
+87,,,,,,,
+88,,,,,,,
+89,,,,,,,
+90,,,,,,,
+91,,,,,,,
+92,,,,,,,
+93,,,,,,,
+94,,,,,,,
+95,,,,,,,
+96,,,,,,,
+97,,,,,,,
+98,,,,,,,
+99,,,,,,,
+100,,,,,,,
