@@ -1,0 +1,295 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{AP Statistics - Unit 2.9}
+\rhead{Analyzing Departures from Linearity}
+\cfoot{\thepage}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Follow-Along Worksheet: Topic 2.9}}\\[0.5em]
+{\large Analyzing Departures from Linearity}\\[1em]
+Name: \underline{\hspace{3in}} \quad Period: \underline{\hspace{1in}}
+\end{center}
+
+\section*{Part 1: Influential Points (Video 1)}
+
+\subsection*{Opening (0:00--0:29)}
+\begin{enumerate}[label=\arabic*.]
+\item What three main concepts will this video cover?
+\begin{enumerate}[label=\alph*)]
+\item \underline{\hspace{3.5in}}
+\item \underline{\hspace{3.5in}}
+\item \underline{\hspace{3.5in}}
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Context and Setup (0:30--1:41)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item What relationship is being explored with the San Antonio grocery store data?
+
+\vspace{0.5em}
+$x$-variable: \underline{\hspace{3in}}
+
+$y$-variable: \underline{\hspace{3in}}
+
+\item Record the regression equation parameters:
+\begin{itemize}
+\item $y$-intercept $\approx$ \underline{\hspace{0.5in}}
+\item slope $\approx$ \underline{\hspace{0.5in}}
+\end{itemize}
+
+\item The mean income is \$\underline{\hspace{1in}} and the mean number of items is \underline{\hspace{0.5in}}.
+
+\textbf{Key Insight:} This point $(\bar{x}, \bar{y})$ always lies \underline{\hspace{2in}}.
+\end{enumerate}
+
+\subsection*{Low vs. High Leverage Points (1:42--3:41)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item \textbf{Low leverage points} are close to \underline{\hspace{1.5in}} on the $x$-axis.
+
+When removed, what happens to the regression line? \underline{\hspace{2.5in}}
+
+\item \textbf{High leverage points} are far from \underline{\hspace{1.5in}} on the $x$-axis.
+
+\item When three high leverage points were removed:
+\begin{itemize}
+\item The $y$-intercept changed from approximately \underline{\hspace{0.5in}} to \underline{\hspace{0.5in}}
+\item This is a shift of \underline{\hspace{0.5in}} units!
+\end{itemize}
+
+\item \textbf{Definition:} High leverage points have unusually \underline{\hspace{1in}} or \underline{\hspace{1in}} $x$-values.
+\end{enumerate}
+
+\subsection*{Outliers in Regression (3:43--4:58)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Looking at the green point in the simple example:
+\begin{itemize}
+\item Is it a high leverage point? \underline{\hspace{0.5in}} 
+\item Why or why not? \underline{\hspace{3in}}
+\end{itemize}
+
+\item An \textbf{outlier} in regression has an unusually high magnitude \underline{\hspace{1.5in}}.
+
+\item When the outlier was removed, what happened to:
+\begin{itemize}
+\item Correlation ($r$): \underline{\hspace{1.5in}}
+\item Coefficient of determination ($R^2$): \underline{\hspace{1.5in}}
+\end{itemize}
+\end{enumerate}
+
+\subsection*{Types of Influential Points (5:02--6:03)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Complete the table for the three types of influential points:
+
+\begin{center}
+\begin{tabular}{|p{2in}|p{3.5in}|}
+\hline
+\textbf{Type} & \textbf{Primary Effect When Removed} \\
+\hline
+Outlier & Changes \underline{\hspace{2.5in}} \\
+\hline
+High Leverage Point & Changes \underline{\hspace{2.5in}} \\
+\hline
+Both Outlier AND High Leverage & Changes \underline{\hspace{2.5in}} \\
+\hline
+\end{tabular}
+\end{center}
+
+\item \textbf{Synthesis:} An influential point is defined as any point that, if removed, substantially changes the \underline{\hspace{0.8in}}, \underline{\hspace{0.8in}}, and/or \underline{\hspace{0.8in}}.
+\end{enumerate}
+
+\subsection*{Reflection Questions}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Why might a point with an $x$-value close to $\bar{x}$ still be influential?
+
+\vspace{1.5em}
+
+\item Sketch a scatter plot showing:
+\begin{itemize}
+\item 5 points following a linear trend
+\item 1 outlier that is NOT a high leverage point
+\item 1 high leverage point that IS following the trend
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[->] (0,0) -- (8,0) node[right] {$x$};
+\draw[->] (0,0) -- (0,6) node[above] {$y$};
+\foreach \x in {1,...,7}
+    \draw (\x,0.1) -- (\x,-0.1) node[below] {\tiny \x};
+\foreach \y in {1,...,5}
+    \draw (0.1,\y) -- (-0.1,\y) node[left] {\tiny \y};
+\end{tikzpicture}
+\end{center}
+\end{enumerate}
+
+\newpage
+
+\section*{Part 2: Transforming Data for Linearity (Video 2)}
+
+\subsection*{Opening and Context (0:00--1:14)}
+\begin{enumerate}[label=\arabic*.]
+\item What will we learn about nonlinear relationships?
+\begin{enumerate}[label=\alph*)]
+\item What to do when data has a \underline{\hspace{2in}}
+\item Effects of \underline{\hspace{1.5in}} on datasets
+\item How to assess if transforming improved \underline{\hspace{1.5in}}
+\end{enumerate}
+
+\item The example explores the relationship between:
+\begin{itemize}
+\item $x$: \underline{\hspace{3in}} (GDP per person)
+\item $y$: \underline{\hspace{3in}}
+\end{itemize}
+\end{enumerate}
+
+\subsection*{Initial Analysis (1:15--3:06)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Describe the association: \underline{\hspace{1in}} (positive/negative/none)
+
+\item Compare the United States and Japan:
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+Country & Income per Person & Life Expectancy \\
+\hline
+United States & \$\underline{\hspace{0.8in}} & \underline{\hspace{0.5in}} years \\
+\hline
+Japan & \$\underline{\hspace{0.8in}} & \underline{\hspace{0.5in}} years \\
+\hline
+\end{tabular}
+\end{center}
+
+What does this comparison show? \underline{\hspace{3in}}
+
+\item For the original linear model:
+\begin{itemize}
+\item $R^2 = $ \underline{\hspace{0.5in}}\%
+\item The residual plot shows a \underline{\hspace{1.5in}} pattern (good/bad?)
+\end{itemize}
+
+\item What type of model does the speaker suggest might be more appropriate? \underline{\hspace{1.5in}}
+\end{enumerate}
+
+\subsection*{Data Transformation (3:07--4:11)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Why is income data typically right-skewed?
+
+\vspace{1.5em}
+
+\item What does a log transformation do to high values?
+\begin{itemize}
+\item Makes them \underline{\hspace{1.5in}}
+\item While preserving the \underline{\hspace{1.5in}} between values
+\end{itemize}
+
+\item The transformation applied was: $x_{new} = $ \underline{\hspace{1in}}
+\end{enumerate}
+
+\subsection*{Comparing Models (4:12--5:14)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Complete the comparison table:
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Measure} & \textbf{Untransformed} & \textbf{Log-Transformed} \\
+\hline
+Scatter plot form & Curved & \underline{\hspace{1.2in}} \\
+\hline
+Residual plot pattern & Shows pattern & \underline{\hspace{1.2in}} \\
+\hline
+$R^2$ value & \underline{\hspace{0.6in}}\% & \underline{\hspace{0.6in}}\% \\
+\hline
+\end{tabular}
+\end{center}
+
+\item \textbf{Key Question:} How do we know the transformation improved the model? List two pieces of evidence:
+\begin{enumerate}[label=\alph*)]
+\item \underline{\hspace{4in}}
+\item \underline{\hspace{4in}}
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Other Transformations (5:15--5:40)}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Besides logarithm, what other transformations are mentioned?
+\begin{itemize}
+\item \underline{\hspace{1.5in}}
+\item \underline{\hspace{1.5in}}
+\end{itemize}
+
+\item In AP Statistics, will you typically transform data yourself? \underline{\hspace{0.5in}}
+
+Instead, you'll assess model fit using \underline{\hspace{1.5in}} and \underline{\hspace{0.5in}} values.
+\end{enumerate}
+
+\subsection*{Synthesis Questions}
+\begin{enumerate}[resume, label=\arabic*.]
+\item Why might a linear model be preferred even when data shows a curved pattern?
+
+\vspace{1.5em}
+
+\item A student claims: ``Since the $R^2$ went from 46.6\% to 71.1\%, the transformed model explains 71.1\% of the variation in life expectancy.'' 
+
+Is this interpretation correct? Explain carefully.
+
+\vspace{2em}
+
+\item When would you choose to transform data? Circle all that apply:
+\begin{enumerate}[label=\alph*)]
+\item The residual plot shows a clear pattern
+\item The $R^2$ value is below 50\%
+\item The original relationship appears nonlinear
+\item You want to use linear regression methods
+\item The data contains outliers
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Practice Problem}
+\begin{enumerate}[resume, label=\arabic*.]
+\item A researcher studying the relationship between city population ($x$) and number of coffee shops ($y$) finds:
+\begin{itemize}
+\item Original model: $\hat{y} = 12 + 0.003x$ with $R^2 = 0.42$
+\item After log-transforming $x$: $\hat{y} = -85 + 42\log(x)$ with $R^2 = 0.78$
+\end{itemize}
+
+\begin{enumerate}[label=\alph*)]
+\item Which model appears to be a better fit? Why?
+
+\vspace{1.5em}
+
+\item If a city has a population of 100,000, predict the number of coffee shops using the transformed model. (Use $\log(100000) \approx 5$)
+
+\vspace{2em}
+\end{enumerate}
+\end{enumerate}
+
+\section*{Summary: Key Concepts Checklist}
+
+Check off each concept as you master it:
+
+\begin{itemize}
+\item[$\square$] I can identify high leverage points (unusual $x$-values)
+\item[$\square$] I can identify outliers in regression (large residuals)
+\item[$\square$] I can explain how influential points affect slope, $y$-intercept, and correlation
+\item[$\square$] I understand when to consider transforming data
+\item[$\square$] I can assess model fit using residual plots
+\item[$\square$] I can assess model fit using $R^2$ values
+\item[$\square$] I can interpret transformed regression models
+\end{itemize}
+
+\vspace{1em}
+\textbf{Remember:} Be critical, be cautious, be compassionate, and avoid bad statistics!
+
+\end{document}
